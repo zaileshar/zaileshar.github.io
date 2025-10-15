@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zailesh A R — VLSI Engineer Portfolio</title>
+  <meta name="description" content="Portfolio of Zailesh A R — M.Tech VLSI Design student. Analog & digital IC design, Verilog, Cadence Virtuoso, FPGA." />
+  <style>
+    :root{
+      --bg:#0f1724; /* deep navy */
+      --card:#0b1220;
+      --muted:#98a8c7;
+      --accent:#00d4ff;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius:18px;
+      --maxW:1100px;
+      --mono: 'Segoe UI Mono', 'Courier New', monospace;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background: radial-gradient(1200px 600px at 10% 10%, rgba(0,212,255,0.03), transparent), linear-gradient(180deg, #071021 0%, var(--bg) 100%); color:#e6eef8}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--maxW);margin:48px auto;padding:28px}
+
+    /* Header */
+    header{display:flex;align-items:center;gap:18px;justify-content:space-between}
+    .brand{display:flex;gap:14px;align-items:center}
+    .avatar{width:84px;height:84px;border-radius:16px;background:linear-gradient(135deg,var(--accent),#6b8cff);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--mono);font-size:20px;color:#021627;box-shadow:0 6px 30px rgba(2,8,23,0.7);}
+    .name-block h1{margin:0;font-size:20px;letter-spacing:0.6px}
+    .name-block p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+    .top-actions{display:flex;gap:10px;align-items:center}
+    .btn{background:linear-gradient(90deg,var(--accent),#6b8cff);padding:10px 14px;border-radius:12px;color:#012; font-weight:700;border:none;cursor:pointer;box-shadow:0 6px 30px rgba(3,18,34,0.6)}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:12px;color:var(--muted)}
+
+    /* Grid */
+    main{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:30px}
+    @media (max-width:980px){main{grid-template-columns:1fr;}}
+
+    /* Left column */
+    .card{background:linear-gradient(180deg,var(--card),rgba(7,10,16,0.6));border-radius:var(--radius);padding:22px;box-shadow:0 8px 40px rgba(2,6,20,0.7);backdrop-filter: blur(8px)}
+    .hero{display:flex;gap:22px;align-items:flex-start}
+    .hero .eyebrow{font-size:13px;color:var(--muted);min-width:120px}
+    .hero h2{margin:0;font-size:28px}
+    .hero p{color:var(--muted);margin-top:8px;line-height:1.5}
+
+    /* Skills pills */
+    .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .pill{padding:8px 12px;border-radius:999px;background:var(--glass);font-size:13px;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
+
+    /* Projects grid */
+    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+    @media (max-width:720px){.projects-grid{grid-template-columns:1fr}}
+    .proj{padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .2s}
+    .proj:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,10,30,0.6)}
+    .proj h3{margin:0;font-size:15px}
+    .proj p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    /* Experience & education */
+    .timeline{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    .time-item{display:flex;gap:12px;align-items:flex-start}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:6px}
+    .time-item h4{margin:0;font-size:14px}
+    .time-item p{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+    /* Right column */
+    aside .card{position:sticky;top:28px}
+    .contact-list{display:flex;flex-direction:column;gap:8px}
+    .contact-row{display:flex;gap:12px;align-items:center}
+    .contact-row svg{opacity:0.9}
+
+    /* Footer */
+    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Animations */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.3,1)}
+    .reveal.visible{opacity:1;transform:none}
+    .glow{position:relative}
+    .glow::after{content:'';position:absolute;inset:-1px;border-radius:16px;filter:blur(18px);opacity:.12;background:linear-gradient(90deg,var(--accent),#6b8cff);z-index:-1}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,12,0.6);opacity:0;pointer-events:none;transition:opacity .25s}
+    .modal.show{opacity:1;pointer-events:auto}
+    .modal-card{width:min(820px,92%);background:linear-gradient(180deg,#071023, #081428);padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.04)}
+
+    /* micro interactions */
+    .dot-anim{height:8px;width:8px;border-radius:50%;background:transparent;border:2px solid rgba(255,255,255,0.06)}
+
+    /* small print */
+    .meta{font-size:12px;color:var(--muted)}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="avatar">ZA</div>
+        <div class="name-block">
+          <h1>Zailesh A R</h1>
+          <p>M.Tech VLSI Design • Analog & Digital IC Design • Verilog | Cadence</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="ghost" href="mailto:zaileshar@gmail.com">zaileshar@gmail.com</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="card hero reveal">
+          <div style="display:flex;gap:18px;align-items:flex-start">
+            <div style="flex:1">
+              <div class="eyebrow meta">Hello — I'm a VLSI Engineer</div>
+              <h2>Designing low‑power & high‑speed analog and digital blocks for ML accelerators and embedded systems.</h2>
+              <p>Currently pursuing M.Tech in VLSI Design at VIT. Experienced with Cadence Virtuoso, Verilog, FPGA flows, and hands-on embedded prototyping. I focus on multiplier/MAC optimization, low‑power amplifier design, and RTL-to-GDS flows.</p>
+
+              <div class="skills" aria-hidden>
+                <div class="pill">Cadence Virtuoso</div>
+                <div class="pill">Verilog & FPGA</div>
+                <div class="pill">TCAD</div>
+                <div class="pill">Python / C++</div>
+                <div class="pill">Low-Power Design</div>
+                <div class="pill">Analog IC</div>
+              </div>
+
+              <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+                <button class="btn" id="downloadResume">Download Resume</button>
+                <a class="ghost" href="https://github.com/zaileshar" target="_blank">GitHub</a>
+                <a class="ghost" href="https://www.linkedin.com/in/zaileshar/" target="_blank">LinkedIn</a>
+              </div>
+            </div>
+            <div style="width:240px">
+              <div style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:12px;">
+                <h4 style="margin:0 0 8px">Quick stats</h4>
+                <div class="meta">Education: M.Tech (ongoing) • B.Tech (8.06 GPA)</div>
+                <div style="height:10px"></div>
+                <div class="meta">Location: India</div>
+                <div style="height:16px"></div>
+                <div class="meta">Open to internships & research collaborations</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal" style="margin-top:18px">
+          <h3 style="margin:0 0 10px">Selected Projects</h3>
+          <div class="projects-grid">
+            <div class="proj" data-title="Telescopic CMOS Amplifier" data-desc="Designed a telescopic CMOS op-amp meeting strict gain & power constraints; verified with DC/AC/pole-zero/transient analyses in Cadence Virtuoso." data-tech="Cadence Virtuoso • Analog Design">
+              <h3>Telescopic CMOS Amplifier</h3>
+              <p>Analog design, lookup-table based sizing, bias optimization.</p>
+            </div>
+            <div class="proj" data-title="Low-Power Multiplier" data-desc="Low-power, high-speed multiplier targeted for MAC units and NN accelerators; delay analysis across blocks." data-tech="Cadence Virtuoso • Digital Design">
+              <h3>Low-Power Multiplier</h3>
+              <p>Multiplier for MAC units — focus on latency & power.</p>
+            </div>
+            <div class="proj" data-title="Parameterized Memory Module" data-desc="Verilog RTL for a parameterized memory supporting read/write, simulated on ModelSim and synthesized on Cyclone IV." data-tech="Verilog • FPGA">
+              <h3>Memory Module (Verilog)</h3>
+              <p>Parameterized, testbench-verified memory for FPGA.</p>
+            </div>
+            <div class="proj" data-title="Embedded IoT Prototypes" data-desc="ESP8266-based home automation and sanitizer dispenser projects with cloud logging and control." data-tech="ESP8266 • C++ • IoT">
+              <h3>IoT Prototypes</h3>
+              <p>ESP-based automation, cloud telemetry.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal" style="margin-top:18px">
+          <h3 style="margin:0 0 10px">Experience</h3>
+          <div class="timeline">
+            <div class="time-item">
+              <div class="dot"></div>
+              <div>
+                <h4>Embedded Engineer — STEM CADETS Pvt. Ltd. (1 year)</h4>
+                <p>Designed embedded firmware and hardware; ESP-based IoT product development using Proteus and C++.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal" style="margin-top:18px">
+          <h3 style="margin:0 0 10px">Education</h3>
+          <div class="timeline">
+            <div class="time-item">
+              <div class="dot"></div>
+              <div>
+                <h4>M.Tech in VLSI Design — VIT (ongoing, 2027)</h4>
+                <p>Focus: Analog & Digital IC Design, Low-Power techniques.</p>
+              </div>
+            </div>
+            <div class="time-item">
+              <div class="dot"></div>
+              <div>
+                <h4>B.Tech — ECE, Govt. Model Engineering College (8.06, 2023)</h4>
+                <p>Solid foundation in electronics and embedded systems.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <aside>
+        <div class="card reveal">
+          <h3 style="margin-top:0">Contact & Links</h3>
+          <div class="contact-list">
+            <div class="contact-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 8V7a2 2 0 0 0-2-2h-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><a href="mailto:zaileshar@gmail.com">zaileshar@gmail.com</a></div>
+            <div class="contact-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 16V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><a href="tel:+917306171237">+91 73061 71237</a></div>
+            <div class="contact-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 1 1-8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><a href="https://www.linkedin.com/in/zaileshar/" target="_blank">linkedin.com/in/zaileshar</a></div>
+            <div class="contact-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2v20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><a href="https://github.com/zaileshar" target="_blank">github.com/zaileshar</a></div>
+          </div>
+
+          <div style="height:14px"></div>
+          <h4 style="margin:0 0 8px">Skills</h4>
+          <div class="skills">
+            <div class="pill">Analog IC</div>
+            <div class="pill">Digital IC</div>
+            <div class="pill">Verilog</div>
+            <div class="pill">Cadence</div>
+            <div class="pill">FPGA</div>
+            <div class="pill">TCAD</div>
+          </div>
+
+          <div style="height:16px"></div>
+          <div class="meta">Available for internships, research collaborations, and freelance projects. Fluent in English and Malayalam.</div>
+        </div>
+
+        <div class="card reveal" style="margin-top:18px">
+          <h3 style="margin-top:0">Awards & Activities</h3>
+          <ul class="meta" style="padding-left:18px;margin:6px 0 0">
+            <li>Core Coordinator — MAGIC 2.0 (IEEE MEC SB)</li>
+            <li>Core Coordinator — Technopreneur 2023 (IEDC MEC)</li>
+            <li>Third prize — State Science Fair (2018)</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div class="meta">Made with ☕ and Cadence. • © <span id="year"></span> Zailesh A R</div>
+    </footer>
+  </div>
+
+  <!-- Modal for project details -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-card">
+      <button id="closeModal" class="ghost" style="float:right">Close</button>
+      <h3 id="modalTitle">Project Title</h3>
+      <p id="modalTech" class="meta"></p>
+      <p id="modalDesc" style="margin-top:10px;color:var(--muted)"></p>
+    </div>
+  </div>
+
+  <script>
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} })
+    },{threshold:0.12});
+    reveals.forEach(r=>io.observe(r));
+
+    // Project modal
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalTech = document.getElementById('modalTech');
+    document.querySelectorAll('.proj').forEach(p=>{
+      p.addEventListener('click', ()=>{
+        modalTitle.textContent = p.dataset.title;
+        modalDesc.textContent = p.dataset.desc;
+        modalTech.textContent = p.dataset.tech;
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+      })
+    });
+    document.getElementById('closeModal').addEventListener('click', ()=>{ modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); });
+    modal.addEventListener('click', (e)=>{ if(e.target===modal){ modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); } });
+
+    // Smooth download (attempt to open resume if available in same folder)
+    document.getElementById('downloadResume').addEventListener('click', ()=>{
+      const url = 'Resume_2 (4).pdf';
+      const a = document.createElement('a'); a.href = url; a.download = 'Zailesh_Resume.pdf'; document.body.appendChild(a); a.click(); a.remove();
+    });
+
+    // Small keyboard shortcut: press R to open resume
+    window.addEventListener('keydown', (e)=>{ if(e.key.toLowerCase()==='r'){ document.getElementById('downloadResume').click(); } });
+
+    // Subtle ambient animation — floating background using CSS variable (pure JS-free fallback handled by CSS gradients)
+    // Accessibility: prefer-reduced-motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(!prefersReduced.matches){
+      let t = 0; setInterval(()=>{ t+=0.002; document.documentElement.style.setProperty('--bg', `linear-gradient(180deg, #071021 0%, rgba(15,23,36,1) ${Math.abs(Math.sin(t))*100}% )`); }, 80);
+    }
+  </script>
+</body>
+</html>
