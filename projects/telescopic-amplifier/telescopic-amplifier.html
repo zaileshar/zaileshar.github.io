@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Telescopic CMOS Amplifier — Project Showcase — Zailesh A R</title>
+<meta name="description" content="Telescopic CMOS Amplifier project showcase — design summary, block diagram, simulation waveforms, RTL & layout notes."/>
+<style>
+:root{
+  --bg:#071426;
+  --card:#071b28;
+  --muted:#9fb7c6;
+  --accent:#7dd3fc;
+  --accent-2:#60a5fa;
+  --glass: rgba(255,255,255,0.03);
+  --radius:14px;
+  --maxw:1100px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color-scheme: dark;
+  color: #e6f6ff;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#031225 160%);-webkit-font-smoothing:antialiased}
+.container{max-width:var(--maxw);margin:36px auto;padding:24px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021026}
+nav{display:flex;gap:12px}
+nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px}
+.hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-top:18px;perspective:1000px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.013), rgba(255,255,255,0.008));padding:18px;border-radius:var(--radius);box-shadow:0 16px 50px rgba(0,0,0,0.6)}
+.title{font-size:20px;margin:0}
+.lead{color:var(--muted);margin-top:8px}
+
+/* diagram */
+.diagram{background:linear-gradient(180deg, rgba(125,211,252,0.02), rgba(96,165,250,0.01));border-radius:12px;padding:14px}
+.diagram svg{width:100%;height:auto;display:block}
+
+/* specs and metrics */
+.specs{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+.spec{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;min-width:160px;text-align:center}
+.spec h4{margin:0}
+.spec p{margin:6px 0 0 0;color:var(--muted);font-size:13px}
+
+/* grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.section{background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.01));padding:14px;border-radius:10px}
+
+/* waveform canvas */
+.wave-canvas{width:100%;height:160px;background:linear-gradient(180deg,#021226,#031427);display:block;border-radius:8px;overflow:hidden}
+
+/* code snippet */
+.snippet{background:#041524;border-radius:8px;padding:12px;font-family:var(--mono);font-size:13px;color:#bfefff;overflow:auto;max-height:260px}
+
+/* buttons */
+.actions{display:flex;gap:10px;margin-top:12px}
+.btn{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021026;font-weight:700;text-decoration:none}
+.btn-ghost{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);color:var(--muted);text-decoration:none}
+
+/* profile 3d */
+.profile{height:220px;border-radius:12px;background:linear-gradient(180deg,#061625,#04121a);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:36px;position:relative;overflow:hidden;transition:transform .12s linear}
+.profile::after{content:'';position:absolute;left:-30%;top:-20%;width:200%;height:200%;background:radial-gradient(closest-side, rgba(125,211,252,0.04), transparent 28%);transform:rotate(18deg)}
+
+/* responsive */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  nav{display:none}
+  .profile{height:160px}
+}
+
+.footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center}
+.small{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="container" id="app">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">AMP</div>
+        <div>
+          <div style="font-weight:800">Telescopic CMOS Amplifier</div>
+          <div class="small">Analog design project — telescopic op-amp showcase</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#overview">Overview</a>
+        <a href="#diagram">Diagram</a>
+        <a href="#results">Results</a>
+        <a href="#rtl">RTL & Notes</a>
+      </nav>
+    </header>
+
+    <main class="hero" style="margin-top:18px">
+      <section class="card" id="overview">
+        <h2 class="title">Project Overview</h2>
+        <p class="lead">Design and analysis of a telescopic CMOS operational amplifier focused on high gain, low noise and low power for mixed-signal front-ends. This page summarizes architecture, design choices, simulated performance and how to reproduce results.</p>
+
+        <div style="margin-top:14px">
+          <strong>Key goals</strong>
+          <ul class="small" style="margin-top:8px">
+            <li>High open-loop gain (>60 dB target)</li>
+            <li>Phase margin & stability for given load (PM & unity-gain)</li>
+            <li>Low power consumption and compact layout footprint</li>
+          </ul>
+        </div>
+
+        <div class="specs">
+          <div class="spec"><h4>Gain</h4><p>> 60 dB (target)</p></div>
+          <div class="spec"><h4>GBW</h4><p>~ 50 MHz (illustrative)</p></div>
+          <div class="spec"><h4>Supply</h4><p>1.2 V / 1.8 V (depending on node)</p></div>
+          <div class="spec"><h4>Power</h4><p>< 1 mW (simulated, typical)</p></div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="#diagram">View Block Diagram</a>
+          <a class="btn-ghost" id="downloadPaper" href="#">Download Summary</a>
+        </div>
+      </section>
+
+      <aside>
+        <div class="profile" id="profileCard">ZA</div>
+
+        <div style="height:12px"></div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:8px">
+          <div><strong>Contact</strong><div class="small">zaileshar@gmail.com · +91 73061 71237</div></div>
+          <div><strong>Environment</strong><div class="small">Cadence Virtuoso • Spectre • Python</div></div>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <a class="btn-ghost" href="https://github.com/zaileshar" target="_blank">GitHub</a>
+            <a class="btn-ghost" href="https://www.linkedin.com/in/zaileshar/" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div class="grid">
+      <section class="section" id="diagram">
+        <h3 style="margin:0 0 8px 0">Telescopic Op-Amp Block Diagram</h3>
+        <div class="diagram" role="img" aria-label="block diagram">
+          <!-- simple conceptual SVG of telescopic amp -->
+          <svg viewBox="0 0 900 260" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <rect x="28" y="36" width="150" height="60" rx="8" fill="#061423"/>
+            <text x="103" y="72" fill="#9edfff" font-size="13" text-anchor="middle">Vin+ / Vin-</text>
+
+            <g id="input" transform="translate(210,20)">
+              <rect x="0" y="20" width="260" height="120" rx="10" fill="#052131" stroke="#0b4860"/>
+              <text x="130" y="60" fill="#bfefff" font-size="15" text-anchor="middle">Differential Input Stage (Telescopic)</text>
+              <text x="130" y="82" fill="#9edfff" font-size="12" text-anchor="middle">(cascode loads, high gm)</text>
+            </g>
+
+            <g transform="translate(500,50)">
+              <rect x="0" y="12" width="250" height="100" rx="10" fill="#052131" stroke="#0b4860"/>
+              <text x="125" y="46" fill="#bfefff" font-size="15" text-anchor="middle">Gain & Output Stage</text>
+              <text x="125" y="68" fill="#9edfff" font-size="12" text-anchor="middle">(active load, current mirror bias)</text>
+            </g>
+
+            <rect x="760" y="86" width="110" height="60" rx="8" fill="#061423"/>
+            <text x="815" y="120" fill="#9edfff" font-size="13" text-anchor="middle">Vout</text>
+
+            <!-- lines -->
+            <line x1="178" y1="66" x2="210" y2="80" stroke="#79e0ff" stroke-width="2"/>
+            <line x1="470" y1="80" x2="500" y2="90" stroke="#79e0ff" stroke-width="2"/>
+            <line x1="750" y1="116" x2="760" y2="116" stroke="#79e0ff" stroke-width="2"/>
+
+            <!-- bias block -->
+            <rect x="30" y="150" width="120" height="70" rx="8" fill="#041725"/>
+            <text x="90" y="188" fill="#9edfff" font-size="12" text-anchor="middle">Bias Generator</text>
+          </svg>
+        </div>
+
+        <div style="margin-top:12px">
+          <strong>Design notes</strong>
+          <ul class="small" style="margin-top:6px">
+            <li>Telescopic topology chosen for high gain and low noise at moderate supply.</li>
+            <li>Cascode transistors used to increase output resistance and DC gain.</li>
+            <li>Bias network provides stable tail current and cascode bias points.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="results">
+        <h3 style="margin:0 0 8px 0">Simulated Results & Waveform</h3>
+        <canvas id="wave" class="wave-canvas"></canvas>
+
+        <div style="margin-top:12px">
+          <strong>Sample simulated metrics (illustrative)</strong>
+          <div style="margin-top:8px" class="small">
+            <ul>
+              <li>Open-loop gain: <strong>~72 dB</strong> (simulated DC)</li>
+              <li>GBW: <strong>~45 MHz</strong> (unity-gain)</li>
+              <li>Phase margin: <strong>~55°</strong> (with 2 pF load)</li>
+              <li>Power: <strong>~0.85 mW</strong> @ 1.2 V (typical)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <strong>Export options</strong>
+          <div class="actions">
+            <a class="btn" id="downloadSummary" href="#">Download Summary</a>
+            <a class="btn-ghost" id="viewLayout" href="#">View Layout (placeholder)</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" id="rtl" style="margin-top:18px">
+      <h3 style="margin:0 0 8px 0">Design Notes & Example SPICE / Verilog Snippets</h3>
+
+      <div style="margin-top:8px" class="small">
+        The full design includes transistor-level netlist (Cadence Virtuoso), bias circuits and testbench stimulus. Below are concise, illustrative snippets you can put in docs — replace with your actual netlist and simulation commands.
+      </div>
+
+      <div style="margin-top:12px" class="snippet">
+<pre>
+* Simplified conceptual bias generator (SPICE-style, illustrative)
+Vdd vdd 0 1.2
+Ibias vref 0 5u
+M1 vref vdd vdd vdd pmos L=0.18u W=10u
+M2 out vref 0 0 nmos L=0.18u W=2u
+* ... (real netlist will be device and PDK specific)
+</pre>
+      </div>
+
+      <div style="margin-top:12px" class="snippet">
+<pre>
+// Simple conceptual Verilog wrapper (for verification harness)
+module amp_tb();
+  real vinp, vinn;
+  // behavioral stimulus for verification plots
+  initial begin
+    vinp = 0.01; vinn = 0;
+    #10 vinp = 0.02; #10 vinp = -0.01;
+    // capture outputs via analog-simulation export or behavioral model
+    #100 $finish;
+  end
+endmodule
+</pre>
+      </div>
+
+      <div style="margin-top:12px" class="small">
+        <em>Note:</em> Replace the illustrative snippets above with your transistor-level netlist and Cadence job scripts for accurate reproduction.
+      </div>
+    </section>
+
+    <div class="footer">
+      This project page is a portfolio-friendly presentation of a Telescopic CMOS Amplifier design. Replace placeholder images, measured waveforms and layout files with your actual files before publishing.
+    </div>
+  </div>
+
+<script>
+/* ---------- Interactive: waveform draw + download summary ---------- */
+(function drawWave(){
+  const c = document.getElementById('wave');
+  const dpr = window.devicePixelRatio || 1;
+  function resize(){
+    const rect = c.getBoundingClientRect();
+    c.width = rect.width * dpr;
+    c.height = rect.height * dpr;
+    c.style.width = rect.width + 'px';
+    c.style.height = rect.height + 'px';
+    render();
+  }
+  function render(){
+    const ctx = c.getContext('2d');
+    const w = c.width, h = c.height;
+    ctx.clearRect(0,0,w,h);
+    // background
+    ctx.fillStyle = '#021226';
+    ctx.fillRect(0,0,w,h);
+
+    // grid
+    ctx.strokeStyle = 'rgba(125,211,252,0.04)';
+    ctx.lineWidth = 1*dpr;
+    for(let i=1;i<8;i++){
+      ctx.beginPath();
+      ctx.moveTo(0, i*(h/8));
+      ctx.lineTo(w, i*(h/8));
+      ctx.stroke();
+    }
+
+    // single-ended step response (illustrative)
+    ctx.beginPath();
+    const mid = h*0.5;
+    for(let x=0;x<w;x++){
+      const t = x/w;
+      // simulate charging curve + ringing (small)
+      const y = mid - (1 - Math.exp(-6*t)) * (h*0.32) + Math.sin(t*12)*h*0.01*Math.exp(-3*t);
+      if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = '#7dd3fc';
+    ctx.lineWidth = 2*dpr;
+    ctx.stroke();
+
+    // overlay small markers for GBW point (illustrative)
+    ctx.fillStyle = 'rgba(110,231,255,0.16)';
+    ctx.beginPath(); ctx.arc(w*0.28, mid- (1 - Math.exp(-6*0.28))*(h*0.32), 6*dpr,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(w*0.58, mid- (1 - Math.exp(-6*0.58))*(h*0.32), 6*dpr,0,Math.PI*2); ctx.fill();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  setInterval(render,120);
+})();
+
+/* Download a small textual summary (placeholder for PDF) */
+document.getElementById('downloadSummary').addEventListener('click', function(e){
+  e.preventDefault();
+  const text = [
+    "Telescopic CMOS Amplifier — Project Summary",
+    "------------------------------------------",
+    "Designer: Zailesh A R",
+    "Environment: Cadence Virtuoso / Spectre",
+    "",
+    "Key (illustrative) results:",
+    "- Open-loop gain: ~72 dB",
+    "- GBW: ~45 MHz",
+    "- Phase margin: ~55 deg",
+    "- Power: ~0.85 mW @ 1.2V",
+    "",
+    "Replace with your measured results and attachments."
+  ].join("\n");
+  const blob = new Blob([text], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'telescopic_amp_summary.txt';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+});
+
+/* placeholder view layout */
+document.getElementById('viewLayout').addEventListener('click', function(e){
+  e.preventDefault();
+  alert('Layout viewer placeholder — add your GDS/PNG of the layout and link it here.');
+});
+
+/* subtle profile parallax */
+const profile = document.getElementById('profileCard');
+document.addEventListener('mousemove', function(e){
+  const r = profile.getBoundingClientRect();
+  const cx = r.left + r.width/2;
+  const cy = r.top + r.height/2;
+  const dx = (e.clientX - cx)/r.width;
+  const dy = (e.clientY - cy)/r.height;
+  profile.style.transform = `rotateX(${dy*4}deg) rotateY(${dx*6}deg) translateZ(6px)`;
+});
+
+/* smooth anchors */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', function(ev){
+    ev.preventDefault();
+    const id = this.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+});
+</script>
+</body>
+</html>
