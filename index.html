@@ -1,447 +1,714 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zailesh A R — VLSI & Chip Design Portfolio</title>
-  <meta name="description" content="Portfolio of Zailesh A R — VLSI Design engineer. Analog & digital IC design, Verilog, Cadence, low-power design, MAC units." />
-  <style>
-    :root{
-      --bg:#06121a;
-      --panel:#071825;
-      --muted:#97a6b8;
-      --accent:#00d4ff;
-      --accent-2:#ffd27b;
-      --trace:#0f2630;
-      --glass: rgba(255,255,255,0.02);
-      --radius:12px;
-      --maxW:1150px;
-      --mono:'Fira Code', 'SFMono-Regular', Menlo, Monaco, monospace;
-      --sans: Inter, system-ui, -apple-system, 'Segoe UI', Roboto;
-      color-scheme: dark;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:var(--sans);background:radial-gradient(800px 300px at 10% 10%, rgba(0,212,255,0.03), transparent), linear-gradient(180deg,var(--bg),#041019);color:#e8f6ff}
-    a{color:var(--accent)}
-    .wrap{max-width:var(--maxW);margin:36px auto;padding:26px}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Zailesh A R — Portfolio</title>
+    <meta
+      name="description"
+      content="Zailesh A R — M.Tech VLSI Student, Embedded Engineer, Analog & Digital IC Designer"
+    />
+    <style>
+      :root {
+        --bg: #071426;
+        --card: #0b1220;
+        --muted: #9aa7b2;
+        --accent: #7dd3fc;
+        --accent-2: #60a5fa;
+        --glass: rgba(255, 255, 255, 0.03);
+        --radius: 14px;
+        --maxw: 1100px;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: linear-gradient(180deg, var(--bg), #021022);
+        color: #e8f3fb;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      .container {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 22px;
+      }
 
-    header{display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .brand{display:flex;gap:14px;align-items:center}
-    .avatar{width:96px;height:96px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:900;font-family:var(--mono);font-size:26px;color:#071217;box-shadow:0 18px 60px rgba(0,0,0,0.6)}
-    .name-block h1{margin:0;font-size:22px}
-    .name-block p{margin:4px 0 0;color:var(--muted);font-size:13px}
-    .actions{display:flex;gap:10px;align-items:center}
-    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:10px 14px;border-radius:10px;color:#061217;font-weight:800;border:none;cursor:pointer}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:9px 12px;border-radius:10px;color:var(--muted)}
+      /* Sticky translucent header */
+      header {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 999;
+        transition: background 0.28s ease, backdrop-filter 0.28s ease,
+          box-shadow 0.28s ease;
+        padding: 10px 0;
+      }
+      header .inner {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 18px;
+      }
+      .header-brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #021026;
+        font-weight: 800;
+      }
+      nav {
+        display: flex;
+        gap: 12px;
+      }
+      nav a {
+        padding: 8px 10px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      header.scrolled {
+        background: rgba(6, 12, 22, 0.58);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      }
 
-    main{display:grid;grid-template-columns:1fr 360px;gap:26px;margin-top:26px}
-    @media (max-width:980px){main{grid-template-columns:1fr}}
+      /* layout */
+      main {
+        padding-top: 96px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 28px;
+        align-items: start;
+        perspective: 1000px;
+      }
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.015),
+          rgba(255, 255, 255, 0.01)
+        );
+        padding: 18px;
+        border-radius: var(--radius);
+        box-shadow: 0 12px 40px rgba(2, 6, 23, 0.6);
+      }
+      .lead {
+        color: var(--muted);
+        margin-top: 8px;
+      }
 
-    .panel{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));border-radius:var(--radius);padding:20px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 12px 45px rgba(2,8,20,0.65)}
+      /* profile 3D/parallax */
+      .profile {
+        height: 300px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, #061625, #04121a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        font-size: 44px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.12s linear;
+      }
+      .profile::after {
+        content: "";
+        position: absolute;
+        left: -30%;
+        top: -20%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          closest-side,
+          rgba(125, 211, 252, 0.06),
+          transparent 28%
+        );
+        transform: rotate(18deg);
+      }
 
-    .hero{display:flex;gap:20px;align-items:center}
-    .hero-left{flex:1}
-    .tag{font-size:13px;color:var(--accent);font-weight:700}
-    .headline{font-size:30px;margin:8px 0;color:#e8f6ff}
-    .sub{color:var(--muted);margin:0 0 12px;line-height:1.45}
+      /* two-column content */
+      .columns {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 28px;
+        margin-top: 26px;
+      }
+      .section-title {
+        margin: 0 0 10px 0;
+      }
+      .pills {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 8px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 13px;
+      }
 
-    .chip-visual{width:300px;height:200px;border-radius:12px;background:linear-gradient(180deg,#05202a,#031019);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.03);box-shadow:0 30px 80px rgba(0,0,0,0.6);position:relative}
-    .chip-visual .grid{position:absolute;inset:0;background-image:linear-gradient(transparent 49px, rgba(255,255,255,0.008) 50px),linear-gradient(90deg, transparent 49px, rgba(255,255,255,0.008) 50px);background-size:50px 50px;opacity:0.04}
+      /* Projects area */
+      .projects {
+        margin-top: 26px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+      .project {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.008),
+          rgba(255, 255, 255, 0.006)
+        );
+        border-radius: 12px;
+        padding: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        transform-style: preserve-3d;
+        transition: transform 0.18s ease, box-shadow 0.18s ease,
+          opacity 0.5s ease, transform 0.5s ease;
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      .project.visible {
+        opacity: 1;
+        transform: none;
+      }
+      .thumb {
+        width: 100%;
+        height: 160px;
+        border-radius: 8px;
+        background: #041922;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .project h4 {
+        margin: 12px 0 6px 0;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+      .detail {
+        color: var(--muted);
+        font-size: 13px;
+      }
 
-    .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted);border:1px solid rgba(0,212,255,0.04)}
+      /* View project button */
+      .view-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: #021026;
+        font-weight: 600;
+        text-decoration: none;
+      }
 
-    .projects{margin-top:16px}
-    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-    @media (max-width:720px){.projects-grid{grid-template-columns:1fr}}
-    .proj{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .28s, box-shadow .28s, filter .4s}
-    .proj:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.55)}
-    .proj h3{margin:0;font-size:15px}
-    .proj p{margin:6px 0 0;color:var(--muted);font-size:13px}
+      /* 3D tilt on hover */
+      .project:hover {
+        transform: translateY(-10px) rotateX(3deg) rotateY(-5deg);
+        box-shadow: 0 30px 70px rgba(2, 6, 23, 0.6);
+      }
 
-    /* timeline */
-    .timeline-wrap{margin-top:22px}
-    .timeline{position:relative;padding-left:96px}
-    .timeline-line{position:absolute;left:54px;top:8px;bottom:8px;width:6px;background:linear-gradient(180deg,var(--trace),#15303a);border-radius:6px;box-shadow:inset 0 0 8px rgba(0,0,0,0.6)}
+      /* reveal utility */
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
 
-    .pulse{position:absolute;left:48px;width:20px;height:20px;border-radius:50%;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 0 32px rgba(0,212,255,0.16);transform:translateY(-10px);opacity:0}
-
-    /* reveal-from-blur animation for timeline entries */
-    .entry{position:relative;margin-bottom:44px;opacity:0;transform:translateY(18px);filter:blur(10px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.3,1), filter .6s}
-    .entry.visible{opacity:1;transform:none;filter:blur(0)}
-
-    .entry .year-badge{position:absolute;left:-102px;top:0;width:84px;text-align:center;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.005));border-radius:8px;padding:8px;color:var(--accent);font-weight:800;border:1px solid rgba(255,255,255,0.02)}
-    .entry .entry-card{margin-left:4px;background:linear-gradient(180deg,rgba(255,255,255,0.015),transparent);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.02)}
-    .entry h4{margin:0 0 6px}
-    .entry p{margin:0;color:var(--muted)}
-
-    @keyframes pulse-fall{
-      0%{opacity:1;transform:translateY(-6px) scale(0.9)}
-      12%{opacity:1;transform:translateY(0) scale(1)}
-      30%{opacity:0.95;transform:translateY(36px) scale(0.95)}
-      55%{opacity:0.6;transform:translateY(120px) scale(0.8)}
-      80%{opacity:0.25;transform:translateY(220px) scale(0.6)}
-      100%{opacity:0;transform:translateY(360px) scale(0.4)}
-    }
-
-    aside .panel{position:fixed;top:28px}
-    .contact-list{display:flex;flex-direction:column;gap:10px}
-    .contact-row{display:flex;gap:12px;align-items:center;color:var(--muted)}
-
-    /* full-screen project modal */
-    .fs-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,12,0.7),rgba(2,6,12,0.9));z-index:1200}
-    .fs-card{width:min(1100px,96%);height:min(760px,92%);background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);display:grid;grid-template-columns:1fr 420px;gap:18px}
-    @media (max-width:980px){.fs-card{grid-template-columns:1fr;height:auto}}
-    .fs-image{background:#031217;border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(0,212,255,0.04)}
-    .fs-content{overflow:auto;padding-right:6px}
-    .fs-title{font-size:20px;margin:0 0 8px}
-    .fs-tech{color:var(--muted);margin-bottom:12px}
-
-    /* Tools section */
-    .tools{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
-    .tool{background:linear-gradient(90deg,rgba(255,255,255,0.01),transparent);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
-
-    /* footer blog area */
-    .boredom{margin-top:26px;text-align:center;padding:22px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02)}
-    .boredom h3{margin:0 0 8px}
-    .boredom p{color:var(--muted);margin:0 0 12px}
-
-    @media (prefers-reduced-motion: reduce){
-      .proj, .entry, .chip-visual{transition:none}
-      .pulse{animation:none}
-    }
-
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="avatar">ZA</div>
-        <div class="name-block">
-          <h1>Zailesh A R</h1>
-          <p>VLSI & Chip Design • Analog/Digital IC • Verilog • Cadence</p>
+      /* responsive */
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .columns {
+          grid-template-columns: 1fr;
+        }
+        .projects {
+          grid-template-columns: 1fr;
+        }
+        nav {
+          display: none;
+        }
+        .profile {
+          height: 200px;
+        }
+      }
+      .footer {
+        margin-top: 36px;
+        padding: 18px;
+        border-radius: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0.005)
+        );
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .muted {
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header id="siteHeader" aria-label="Top navigation">
+      <div class="inner container">
+        <div class="header-brand">
+          <div class="logo">ZAR</div>
+          <div>
+            <div style="font-weight: 700">Zailesh A R</div>
+            <div style="font-size: 13px; color: var(--muted)">
+              M.Tech VLSI • Analog & Digital IC
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="actions">
-        <a class="ghost" href="mailto:zaileshar@gmail.com">zaileshar@gmail.com</a>
-        <button class="btn" id="downloadResume">Resume</button>
+        <nav aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#contact">Contact</a>
+        </nav>
       </div>
     </header>
 
-    <main>
-      <section>
-        <div class="panel hero">
-          <div class="hero-left">
-            <div class="tag">Designing silicon — from transistor to system</div>
-            <div class="headline">I build low‑power analog blocks and high‑speed digital accelerators for ML & embedded systems.</div>
-            <p class="sub">M.Tech (VLSI) student with practical experience in Cadence Virtuoso, RTL design in Verilog, FT‑aware layout thinking and FPGA prototyping. My work sits at the crossroad of analog device physics and digital architecture.</p>
+    <main class="container">
+      <section class="hero">
+        <div class="card">
+          <h2 style="margin: 0">
+            Hi — I'm <span style="color: var(--accent)">Zailesh</span>
+          </h2>
+          <p class="lead">
+            M.Tech VLSI student, analog & digital IC design, FPGA & embedded
+            systems. I enjoy low-power design and accelerator hardware.
+          </p>
 
-            <div class="skills">
-              <div class="pill">Cadence Virtuoso</div>
-              <div class="pill">Verilog / RTL</div>
-              <div class="pill">Analog IC Design</div>
-              <div class="pill">Low‑Power Techniques</div>
-              <div class="pill">FPGA Prototyping</div>
-            </div>
-
-            <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
-              <a class="btn" href="#timelineSection">See Timeline</a>
-              <a class="ghost" href="https://github.com/zaileshar" target="_blank">GitHub</a>
-            </div>
+          <div style="margin-top: 16px">
+            <div class="pills" id="pillsArea"></div>
           </div>
 
-          <div class="chip-visual" aria-hidden>
-            <div class="grid"></div>
-            <svg class="chip-svg" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#05232d"/><stop offset="1" stop-color="#05202a"/></linearGradient>
-                <linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#00d4ff"/><stop offset="1" stop-color="#ffd27b"/></linearGradient>
-              </defs>
-              <rect x="18" y="26" width="284" height="168" rx="12" fill="url(#g1)" stroke="rgba(255,255,255,0.04)"/>
-              <rect x="88" y="56" width="144" height="108" rx="10" fill="#041318" stroke="rgba(0,212,255,0.06)"/>
-              <g fill="#05363d">
-                <rect x="100" y="68" width="40" height="32" rx="6"/>
-                <rect x="160" y="68" width="40" height="32" rx="6"/>
-                <rect x="100" y="108" width="40" height="32" rx="6"/>
-                <rect x="160" y="108" width="40" height="32" rx="6"/>
-              </g>
-              <g stroke="url(#g2)" stroke-width="2" stroke-linecap="round" opacity="0.95">
-                <path d="M64 80 L96 80"/>
-                <path d="M64 120 L96 120"/>
-                <path d="M256 80 L200 80"/>
-                <path d="M256 120 L200 120"/>
-              </g>
-              <g transform="translate(226,36)">
-                <circle cx="0" cy="0" r="14" fill="url(#g2)"/>
-                <rect x="-2" y="-10" width="4" height="10" fill="#041318"/>
-                <rect x="2" y="-2" width="10" height="4" fill="#041318"/>
-              </g>
-            </svg>
+          <div style="margin-top: 18px; display: flex; gap: 12px">
+            <a
+              class="pill"
+              href="#projects"
+              style="
+                background: linear-gradient(
+                  90deg,
+                  var(--accent),
+                  var(--accent-2)
+                );
+                color: #021026;
+              "
+              >See Projects</a
+            >
+            <a
+              class="pill"
+              id="downloadResume"
+              href="#"
+              onclick="downloadResume()"
+              >Download Resume</a
+            >
+          </div>
+
+          <div style="margin-top: 22px">
+            <h4 class="section-title">Tools & Tech</h4>
+            <div
+              id="toolsArea"
+              style="display: flex; gap: 8px; flex-wrap: wrap"
+            ></div>
           </div>
         </div>
 
-        <div class="panel projects">
-          <h3 style="margin:0 0 10px">Selected Projects</h3>
-          <div class="projects-grid">
-            <div class="proj" data-title="High-Speed Multiplier MAC" data-desc="Designed and RTL-verified a Wallace Tree-based multiplier and MAC unit optimized for low latency and area." data-tech="Verilog • Synthesis • Timing analysis" data-year="2025">
-              <h3>Multiplier / MAC for NN Accelerator</h3>
-              <p>Latency-optimal multiplier architecture with cycle-accurate simulation.</p>
+        <aside>
+          <div class="profile" id="profileCard">ZA</div>
+
+          <div style="height: 14px"></div>
+
+          <div
+            class="card"
+            style="display: flex; flex-direction: column; gap: 8px"
+          >
+            <div>
+              <strong>Contact</strong>
+              <div class="muted">zaileshar@gmail.com · +91 73061 71237</div>
             </div>
-            <div class="proj" data-title="Telescopic CMOS Amplifier" data-desc="Telescopic CMOS op-amp design in Cadence Virtuoso with pole-zero and transient verification meeting gain targets." data-tech="Cadence • Analog Layout" data-year="2027">
-              <h3>Telescopic CMOS Amplifier</h3>
-              <p>Analog amp design with careful noise and power trade-offs.</p>
+            <div>
+              <strong>Location</strong>
+              <div class="muted">Vellore, Tamil Nadu, India</div>
             </div>
-            <div class="proj" data-title="Low-Power Memory Macro" data-desc="Parameterized memory in Verilog with low-leakage power gating and verification on FPGA." data-tech="Verilog • FPGA" data-year="2023">
-              <h3>Parameterized Memory Macro</h3>
-              <p>RTL and FPGA-validated memory with power gating strategy.</p>
-            </div>
-            <div class="proj" data-title="FPGA Prototyping & IoT" data-desc="Prototyped accelerator kernels on FPGA and built IoT prototypes for data collection and telemetry." data-tech="FPGA • Embedded" data-year="2025">
-              <h3>FPGA Prototyping & IoT</h3>
-              <p>End-to-end prototyping from RTL to board.</p>
+            <div style="display: flex; gap: 8px; margin-top: 8px">
+              <a
+                class="pill"
+                href="https://github.com/zaileshar"
+                target="_blank"
+                >GitHub</a
+              >
+              <a
+                class="pill"
+                href="https://www.linkedin.com/in/zaileshar/"
+                target="_blank"
+                >LinkedIn</a
+              >
             </div>
           </div>
-
-          <!-- Tools block requested -->
-          <h4 style="margin:14px 0 8px">Tools & Environments</h4>
-          <div class="tools">
-            <div class="tool">Cadence Virtuoso (Schematic / Layout / LVS)</div>
-            <div class="tool">ModelSim / Questa / Synopsys VCS</div>
-            <div class="tool">Quartus / Xilinx Vivado (FPGA flows)</div>
-            <div class="tool">SPICE / TCAD / ADS</div>
-            <div class="tool">Python / C++ / Shell</div>
-            <div class="tool">Git, Make, CI for FPGA and RTL</div>
-          </div>
-        </div>
-
-        <div class="panel timeline-wrap" id="timelineSection">
-          <h3 style="margin:0 0 10px">Project Timeline (synchronous view)</h3>
-          <div class="timeline" id="timeline">
-            <div class="timeline-line"></div>
-            <div class="pulse" id="pulse"></div>
-
-            <div class="entry" data-year="2027" data-title="Telescopic CMOS Amplifier">
-              <div class="year-badge">2027</div>
-              <div class="entry-card">
-                <h4>Telescopic CMOS Amplifier</h4>
-                <p>Telescopic op-amp design in Cadence; biasing and pole-zero optimisation. Layout planned with unit-length metal fingers and careful matching.</p>
-              </div>
-            </div>
-
-            <div class="entry" data-year="2025" data-title="High-Speed Multiplier MAC">
-              <div class="year-badge">2025</div>
-              <div class="entry-card">
-                <h4>High-Speed Multiplier / MAC</h4>
-                <p>Wallace Tree multiplier design, Booth encoding exploration, RTL verification and synthesis for timing closure.</p>
-              </div>
-            </div>
-
-            <div class="entry" data-year="2025" data-title="FPGA Prototyping & IoT">
-              <div class="year-badge">2025</div>
-              <div class="entry-card">
-                <h4>FPGA Prototyping & IoT</h4>
-                <p>Accelerator kernels prototyped on FPGA; ESP-based IoT telemetry for data capture during experiments.</p>
-              </div>
-            </div>
-
-            <div class="entry" data-year="2023" data-title="Low-Power Memory Macro">
-              <div class="year-badge">2023</div>
-              <div class="entry-card">
-                <h4>Low-Power Memory Macro</h4>
-                <p>RTL-verified memory macro with power gating and cell-aware timing analysis. Synthesised and tested on FPGA.</p>
-              </div>
-            </div>
-
-            <div class="entry" data-year="2018" data-title="Science Fair">
-              <div class="year-badge">2018</div>
-              <div class="entry-card">
-                <h4>State Science Fair — 3rd Prize</h4>
-                <p>Hardware project demonstrating novel circuitry; early hands-on experience.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Boredom / blogs section -->
-        <div class="boredom panel" id="boredom">
-          <h3>When boredom hits, I hop on to...</h3>
-          <p>Write a short description here about where you publish — blogs, experiments, sketches, or notebook links. Add links below.</p>
-          <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap">
-            <a class="ghost" href="#">My Blog</a>
-            <a class="ghost" href="#">Notebooks</a>
-            <a class="ghost" href="#">Papers</a>
-          </div>
-        </div>
-
+        </aside>
       </section>
 
-      <aside>
-        <div class="panel">
-          <h3 style="margin-top:0">Contact & Links</h3>
-          <div class="contact-list">
-            <div class="contact-row"><strong>Email:</strong>&nbsp;<a href="mailto:zaileshar@gmail.com">zaileshar@gmail.com</a></div>
-            <div class="contact-row"><strong>Phone:</strong>&nbsp;<a href="tel:+917306171237">+91 73061 71237</a></div>
-            <div class="contact-row"><strong>LinkedIn:</strong>&nbsp;<a href="https://www.linkedin.com/in/zaileshar/" target="_blank">linkedin.com/in/zaileshar</a></div>
-            <div class="contact-row"><strong>GitHub:</strong>&nbsp;<a href="https://github.com/zaileshar" target="_blank">github.com/zaileshar</a></div>
+      <div class="columns">
+        <section class="card" id="about">
+          <h3 style="margin: 0 0 12px 0">About</h3>
+          <p id="aboutText">
+            I'm a passionate VLSI student and embedded systems engineer. I enjoy
+            working on analog & digital IC design, low-power systems and
+            neural-network-friendly hardware.
+          </p>
+
+          <h4 style="margin-top: 18px">Interests & Soft Skills</h4>
+          <div class="muted" id="interests">
+            Low Power Design, IC Design, Design Verification, Leadership, Time
+            Management
           </div>
 
-          <div style="height:14px"></div>
-          <h4 style="margin:0 0 8px">Core Skills</h4>
-          <div class="skills">
-            <div class="pill">Analog IC</div>
-            <div class="pill">Digital IC</div>
-            <div class="pill">Verilog</div>
-            <div class="pill">Cadence</div>
-            <div class="pill">FPGA</div>
-            <div class="pill">Low‑Power Design</div>
-          </div>
-        </div>
+          <h4 style="margin-top: 18px">Education</h4>
+          <div class="timeline" id="educationTL"></div>
+        </section>
 
-        <div class="panel" style="margin-top:16px">
-          <h3 style="margin-top:0">Awards & Activities</h3>
-          <ul style="color:var(--muted);padding-left:18px;margin:8px 0 0">
-            <li>Core Coordinator — MAGIC 2.0 (IEEE MEC SB)</li>
-            <li>Core Coordinator — Technopreneur 2023 (IEDC MEC)</li>
-            <li>Third prize — State Science Fair (2018)</li>
-          </ul>
+        <aside>
+          <section class="card" id="skills">
+            <h4 style="margin: 0 0 10px 0">Skills</h4>
+            <div style="margin-top: 6px">
+              <strong>Technical</strong>
+              <div class="muted" id="techSkills"></div>
+            </div>
+            <div style="margin-top: 10px">
+              <strong>Soft</strong>
+              <div class="muted" id="softSkills"></div>
+            </div>
+          </section>
+
+          <section class="card" id="achievements" style="margin-top: 14px">
+            <h4 style="margin: 0 0 10px 0">Achievements</h4>
+            <div class="muted" id="achList"></div>
+          </section>
+        </aside>
+      </div>
+
+      <section id="projects" style="margin-top: 26px">
+        <h3 style="margin: 0 0 10px 0">Projects</h3>
+        <div class="projects" id="projectsList" aria-live="polite"></div>
+        <div style="margin-top: 10px; color: var(--muted); font-size: 13px">
+          Tip: add or edit projects in the <code>projectsData</code> array in
+          the script at the bottom. Use <code>image</code> with a path like
+          <code>/assets/project.jpg</code>.
         </div>
-      </aside>
+      </section>
+
+      <section id="timeline" class="card" style="margin-top: 26px">
+        <h3 style="margin: 0 0 10px 0">Work & Experience</h3>
+        <div class="timeline" id="workTL"></div>
+      </section>
+
+      <section id="contact" class="card" style="margin-top: 22px">
+        <h3 style="margin: 0 0 8px 0">Contact</h3>
+        <div class="muted">
+          Email: <a href="mailto:zaileshar@gmail.com">zaileshar@gmail.com</a>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>
+          <strong>Zailesh A R</strong>
+          <div class="muted">M.Tech VLSI • Analog & Digital IC Design</div>
+        </div>
+        <div class="muted">Built with HTML/CSS/JS — Host on GitHub Pages</div>
+      </footer>
     </main>
 
-    <footer>
-      <div style="text-align:center;color:var(--muted);font-size:13px;margin-top:22px">© <span id="year"></span> Zailesh A R — VLSI & Chip Design</div>
-    </footer>
-  </div>
+    <script>
+      /* ---------- Data: edit these arrays to update the site ---------- */
+      const projectsData = [
+        {
+          title: "High-speed Multiplier MAC",
+          meta: "Verilog • RTL • FPGA",
+          desc: "Wallace-tree multiplier-based MAC for NN accelerators.",
+          image: "/assets/multiplier.jpg",
+          link: "projects/high-speed-mac/high-speed-mac.html",
+        },
+        {
+          title: "Telescopic CMOS Amplifier",
+          meta: "Cadence • Analog",
+          desc: "Telescopic amplifier design and verification.",
+          image: "/assets/telescopic_opamp.jpg",
+          link: "https://github.com/zaileshar/telescopic-amplifier",
+        },
+        {
+          title: "Low-Power Multiplier",
+          meta: "FPGA • Python",
+          desc: "Approximate computing techniques for power reduction.",
+          image: "/assets/lowpower_mul.jpg",
+          link: "https://github.com/zaileshar/low-power-multiplier",
+        },
+        {
+          title: "Memory Module on FPGA",
+          meta: "Verilog • ModelSim",
+          desc: "Parameterized memory with timing verification.",
+          image: "/assets/memory.jpg",
+          link: "https://github.com/zaileshar/fpga-memory",
+        },
+      ];
 
-  <!-- Fullscreen project modal -->
-  <div id="fsModal" class="fs-modal" aria-hidden="true">
-    <div class="fs-card" role="dialog" aria-modal="true">
-      <div class="fs-image" id="modalImageWrap">
-        <!-- image injected here -->
-      </div>
-      <div class="fs-content">
-        <button id="closeFs" class="ghost" style="float:right">Close</button>
-        <h2 class="fs-title" id="fsTitle"></h2>
-        <div class="fs-tech" id="fsTech"></div>
-        <div id="fsDesc" style="color:var(--muted);margin-bottom:14px"></div>
-        <div id="fsTimelineRef" style="color:var(--muted);font-size:13px"></div>
-        <div style="height:8px"></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <a id="fsGithub" class="ghost" href="#">Project Repo</a>
-          <a id="fsPDF" class="ghost" href="#">Design Docs</a>
-        </div>
-      </div>
-    </div>
-  </div>
+      const tools = [
+        "Cadence Virtuoso",
+        "Synopsys Sentaurus TCAD",
+        "Intel Quartus Prime",
+        "ModelSim",
+        "Python",
+        "C++",
+        "Verilog",
+        "FPGA",
+        "Embedded C",
+      ];
+      const education = [
+        {
+          when: "M.Tech (VLSI), VIT Vellore",
+          date: "2025 - 2027 (ongoing)",
+          desc: "Pursuing M.Tech in VLSI Design",
+        },
+        {
+          when: "B.Tech, Govt. Model Engineering College",
+          date: "2019 - 2023",
+          desc: "B.Tech in Electronics & Communication — 8.06 CGPA",
+        },
+      ];
+      const achievements = [
+        "Core Coordinator — MAGIC 2.0 (IEEE MEC SB)",
+        "Core Coordinator — Technopreneur 2023 (IEDC MEC)",
+        "Third prize (District) — State Science Fair 2018",
+      ];
+      const workTimeline = [
+        {
+          role: "Embedded Engineer — STEM Cadets",
+          date: "Sep 2023 - Jul 2024",
+          desc: "Embedded circuits & firmware using ESP boards; IoT prototypes.",
+        },
+        {
+          role: "STEM Facilitator",
+          date: "Jul 2023 - Sep 2023",
+          desc: "Facilitated hands-on STEM workshops",
+        },
+      ];
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+      /* ---------- Render helpers ---------- */
+      function el(tag, cls, txt) {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (txt != null) e.innerText = txt;
+        return e;
+      }
 
-    // resume download
-    document.getElementById('downloadResume').addEventListener('click', ()=>{
-      const url = 'Resume_2 (4).pdf';
-      const a = document.createElement('a'); a.href = url; a.download = 'Zailesh_Resume.pdf'; document.body.appendChild(a); a.click(); a.remove();
-    });
+      /* pills & tools */
+      const pillsArea = document.getElementById("pillsArea");
+      [
+        "Analog & Digital IC Design",
+        "Low Power Design",
+        "Verilog",
+        "TCAD",
+        "Embedded Systems",
+      ].forEach((p) => pillsArea.appendChild(el("div", "pill", p)));
+      const toolsArea = document.getElementById("toolsArea");
+      tools.forEach((t) => toolsArea.appendChild(el("div", "pill", t)));
+      document.getElementById("techSkills").innerText = tools.join(" • ");
+      document.getElementById("softSkills").innerText = [
+        "Leadership",
+        "Teamwork",
+        "Critical Thinking",
+        "Time Management",
+      ].join(" • ");
 
-    // Helper to create a small SVG placeholder as data URL (so modal always shows something offline)
-    function makePlaceholderDataURL(title){
-      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='900' height='600'><rect width='100%' height='100%' fill='#041318'/><text x='50%' y='46%' fill='#00d4ff' font-size='32' font-family='${encodeURIComponent("Fira Code")}' text-anchor='middle'>${title}</text><text x='50%' y='56%' fill='#97a6b8' font-size='18' text-anchor='middle'>Project visual placeholder</text></svg>`;
-      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-    }
+      /* education & achievements */
+      const ed = document.getElementById("educationTL");
+      education.forEach((it) => {
+        const d = el("div");
+        d.appendChild(el("h4", null, it.when));
+        d.appendChild(el("time", null, it.date));
+        d.appendChild(el("p", null, it.desc));
+        ed.appendChild(d);
+      });
+      document.getElementById("achList").innerHTML = achievements
+        .map((a) => `<div>• ${a}</div>`)
+        .join("");
 
-    // Fullscreen project modal logic — expands project with image and timeline link
-    const fsModal = document.getElementById('fsModal');
-    const fsTitle = document.getElementById('fsTitle');
-    const fsTech = document.getElementById('fsTech');
-    const fsDesc = document.getElementById('fsDesc');
-    const fsTimelineRef = document.getElementById('fsTimelineRef');
-    const modalImageWrap = document.getElementById('modalImageWrap');
-    const fsGithub = document.getElementById('fsGithub');
-    const fsPDF = document.getElementById('fsPDF');
-    document.querySelectorAll('.proj').forEach(p=>{
-      p.addEventListener('click', ()=>{
-        const title = p.dataset.title || p.querySelector('h3').innerText;
-        const tech = p.dataset.tech || '';
-        const desc = p.dataset.desc || p.querySelector('p').innerText;
-        const year = p.dataset.year || '';
-        // populate content
-        fsTitle.textContent = title;
-        fsTech.textContent = tech;
-        fsDesc.textContent = desc;
-        fsTimelineRef.textContent = year ? `Timeline reference: ${year}` : '';
-        // create placeholder image & inject
-        modalImageWrap.innerHTML = '';
-        const img = document.createElement('img'); img.src = makePlaceholderDataURL(title); img.alt = title; img.style.maxWidth='100%'; img.style.borderRadius='8px'; img.style.maxHeight='100%';
-        modalImageWrap.appendChild(img);
-        // links — user can edit these later to point to real assets
-        fsGithub.href = '#'; fsPDF.href = '#';
-        // show modal
-        fsModal.style.display = 'flex'; fsModal.setAttribute('aria-hidden','false');
-        // lock scroll
-        document.body.style.overflow = 'hidden';
-      })
-    });
-    document.getElementById('closeFs').addEventListener('click', ()=>{ fsModal.style.display='none'; fsModal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; });
-    fsModal.addEventListener('click', (e)=>{ if(e.target===fsModal){ fsModal.style.display='none'; fsModal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } });
+      /* ---------- Projects rendering with links & interactions ---------- */
+      const projectsList = document.getElementById("projectsList");
 
-    // Timeline blur reveal
-    const entries = document.querySelectorAll('.entry');
-    const pulse = document.getElementById('pulse');
-    const timeline = document.getElementById('timeline');
+      projectsData.forEach((p) => {
+        const card = el("article", "project");
 
-    const io = new IntersectionObserver((ents)=>{
-      ents.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add('visible');
+        // thumbnail
+        const thumb = el("div", "thumb");
+        if (p.image) {
+          const img = document.createElement("img");
+          img.src = p.image;
+          img.alt = p.title;
+          img.onerror = () => {
+            img.style.display = "none";
+            thumb.innerText = "No image";
+          };
+          thumb.appendChild(img);
+        } else {
+          thumb.innerText = "No image";
         }
-      });
-    },{threshold:0.24});
-    entries.forEach(en=>io.observe(en));
+        card.appendChild(thumb);
 
-    // Pulse animation start when timeline visible
-    function startPulseAnimation(){
-      pulse.style.animation = 'none';
-      void pulse.offsetWidth;
-      const duration = Math.max(2200, entries.length * 900);
-      pulse.style.animation = `pulse-fall ${duration}ms linear infinite`;
-    }
-    const timelineObserver = new IntersectionObserver((ents)=>{
-      ents.forEach(e=>{
-        if(e.isIntersecting){ startPulseAnimation(); }
-        else{ pulse.style.animation = 'none'; }
-      });
-    },{threshold:0.2});
-    timelineObserver.observe(timeline);
+        // title / meta / desc
+        card.appendChild(el("h4", null, p.title));
+        card.appendChild(el("div", "meta", p.meta));
+        card.appendChild(el("div", "detail", p.desc));
 
-    // position pulse
-    function positionPulseTop(){
-      const top = 8; pulse.style.top = `${top}px`; pulse.style.left = `48px`;
-    }
-    window.addEventListener('resize', positionPulseTop);
-    positionPulseTop();
+        // link button (if provided)
+        if (p.link) {
+          const linkBtn = document.createElement("a");
+          linkBtn.href = p.link;
+          linkBtn.target = "_blank";
+          linkBtn.rel = "noopener noreferrer";
+          linkBtn.className = "view-btn";
+          linkBtn.innerText = "View Project";
+          card.appendChild(linkBtn);
+        }
 
-    // Tools: clicking a tool filters projects (simple demo)
-    document.querySelectorAll('.tool').forEach(t=>{
-      t.addEventListener('click', ()=>{
-        const txt = t.innerText.toLowerCase();
-        document.querySelectorAll('.proj').forEach(p=>{
-          const match = (p.dataset.tech||'').toLowerCase().includes(txt) || (p.textContent||'').toLowerCase().includes(txt);
-          p.style.filter = match ? 'none' : 'grayscale(0.8) blur(2px)';
+        projectsList.appendChild(card);
+
+        // 3D tilt interaction
+        card.addEventListener("mousemove", (e) => {
+          const r = card.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          const dx = (e.clientX - cx) / r.width;
+          const dy = (e.clientY - cy) / r.height;
+          card.style.transform = `translateY(-8px) rotateX(${
+            dy * 6
+          }deg) rotateY(${dx * 8}deg)`;
         });
-        // flash selected tool
-        t.animate([{filter:'drop-shadow(0 8px 20px rgba(0,212,255,0.06))'},{filter:'none'}],{duration:450});
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "";
+        });
       });
-    });
 
-    // accessibility reduced motion
-    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      pulse.style.animation = 'none';
-    }
+      /* reveal-on-scroll */
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.14 }
+      );
+      document.querySelectorAll(".project").forEach((p) => observer.observe(p));
 
-    // keyboard shortcut R for resume
-    window.addEventListener('keydown', (e)=>{ if(e.key.toLowerCase()==='r'){ document.getElementById('downloadResume').click(); } });
+      /* profile parallax */
+      const profile = document.getElementById("profileCard");
+      document.addEventListener("mousemove", (e) => {
+        const r = profile.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const dx = (e.clientX - cx) / r.width;
+        const dy = (e.clientY - cy) / r.height;
+        profile.style.transform = `rotateX(${dy * 4}deg) rotateY(${
+          dx * 6
+        }deg) translateZ(6px)`;
+      });
 
-  </script>
-</body>
+      /* sticky translucent header */
+      const header = document.getElementById("siteHeader");
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (window.scrollY > 28) header.classList.add("scrolled");
+          else header.classList.remove("scrolled");
+        },
+        { passive: true }
+      );
+
+      /* work timeline */
+      const workTL = document.getElementById("workTL");
+      workTimeline.forEach((w) => {
+        const it = el("div");
+        it.appendChild(el("h4", null, w.role));
+        it.appendChild(el("time", null, w.date));
+        it.appendChild(el("p", null, w.desc));
+        workTL.appendChild(it);
+      });
+
+      /* resume download helper */
+      function downloadResume() {
+        const a = document.createElement("a");
+        a.href = "Resume_2 (4).pdf"; // change path if you rename PDF in repo
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.click();
+      }
+
+      /* smooth anchors */
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const id = a.getAttribute("href").slice(1);
+          const el = document.getElementById(id);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      /* expose for debug */
+      window.__portfolio = {
+        projectsData,
+        tools,
+        education,
+        achievements,
+        workTimeline,
+      };
+    </script>
+  </body>
 </html>

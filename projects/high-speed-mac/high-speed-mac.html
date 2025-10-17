@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>High-speed Multiplier MAC — Project Showcase</title>
+<meta name="description" content="Illustrative project page for a High-speed Multiplier-based MAC unit for neural network accelerators." />
+<style>
+:root{
+  --bg:#071426;
+  --card:#0b1220;
+  --muted:#a6bcc9;
+  --accent:#6ee7ff;
+  --accent-2:#60a5fa;
+  --glass: rgba(255,255,255,0.025);
+  --radius:14px;
+  --maxw:1100px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", "Courier New", monospace;
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#03122a 160%);color:#eaf6ff;-webkit-font-smoothing:antialiased}
+.container{max-width:var(--maxw);margin:36px auto;padding:28px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021026}
+nav{display:flex;gap:12px}
+nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px}
+.hero{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:20px;align-items:start}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:var(--radius);box-shadow:0 18px 50px rgba(0,0,0,0.6)}
+.title{font-size:20px;margin:0}
+.lead{color:var(--muted);margin-top:8px}
+
+/* diagram area */
+.diagram{background:linear-gradient(180deg, rgba(125,211,252,0.02), rgba(96,165,250,0.01));border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.diagram svg{width:100%;height:auto;display:block}
+
+/* metrics */
+.metrics{display:flex;gap:12px;margin-top:14px}
+.metric{flex:1;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;text-align:center}
+.metric h4{margin:0;font-size:18px}
+.metric p{margin:6px 0 0 0;color:var(--muted);font-size:13px}
+
+/* waveform / results */
+.wave-wrap{margin-top:12px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.02)}
+.wave-canvas{width:100%;height:160px;display:block;background:linear-gradient(180deg,#021226,#031427)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+
+/* features and text */
+.features{display:flex;flex-direction:column;gap:10px}
+.feature{display:flex;gap:12px;align-items:flex-start}
+.badge{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#021026;font-weight:700}
+
+/* code snippet */
+.snippet{background:#041524;border-radius:8px;padding:12px;font-family:var(--mono);font-size:13px;color:#bfefff;overflow:auto;max-height:260px}
+
+/* footer buttons */
+.actions{display:flex;gap:10px;margin-top:14px}
+.btn{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021026;font-weight:700;text-decoration:none}
+.btn-ghost{padding:10px 14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);text-decoration:none}
+
+/* responsive */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  nav{display:none}
+}
+.footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center}
+.small{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <header class="header">
+    <div class="brand">
+      <div class="logo">MAC</div>
+      <div>
+        <div style="font-weight:800">High-speed Multiplier MAC</div>
+        <div class="small">Illustrative project showcase — imagined results</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#overview">Overview</a>
+      <a href="#diagram">Block Diagram</a>
+      <a href="#results">Results</a>
+      <a href="#code">RTL</a>
+    </nav>
+  </header>
+
+  <main class="hero" style="margin-top:18px">
+    <section class="card" id="overview">
+      <h3 class="title">Project Overview</h3>
+      <p class="lead">This page presents an illustrative summary of a high-speed multiplier-based MAC (Multiply–Accumulate) unit intended for neural-network accelerators. The content below is a designed visualization and sample metrics to help you present the work on a portfolio or demo site.</p>
+
+      <div class="features" style="margin-top:12px">
+        <div class="feature">
+          <div class="badge">F</div>
+          <div>
+            <strong>Feature</strong>
+            <div class="small">32-bit fixed-point multiply & accumulate, pipelined stages, and operand gating for low-power operation.</div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="badge">P</div>
+          <div>
+            <strong>Performance</strong>
+            <div class="small">Target clock: 500 MHz (illustrative). Fully pipelined throughput of 1 result / cycle at steady state.</div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="badge">S</div>
+          <div>
+            <strong>Scope</strong>
+            <div class="small">Designed in Verilog; simulated with ModelSim; synthesized constraint examples for FPGA prototype (Cyclone/Artix class).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="#diagram">View Block Diagram</a>
+        <a class="btn-ghost" id="openRepo" href="#" title="Open example repo">Open repo (example)</a>
+      </div>
+
+    </section>
+
+    <aside class="card" id="diagram">
+      <h4 style="margin:0 0 8px 0">Block Diagram</h4>
+      <div class="diagram" aria-hidden="false">
+        <!-- Simple block diagram (SVG) with animated data flow -->
+        <svg viewBox="0 0 900 320" preserveAspectRatio="xMidYMid meet" aria-labelledby="bdTitle" role="img">
+          <title id="bdTitle">MAC Block Diagram</title>
+          <!-- inputs -->
+          <rect x="20" y="40" width="120" height="60" rx="8" fill="#061a2a" stroke="#072838"/>
+          <text x="80" y="78" fill="#9edfff" font-size="14" text-anchor="middle">Operand A</text>
+
+          <rect x="20" y="140" width="120" height="60" rx="8" fill="#061a2a" stroke="#072838"/>
+          <text x="80" y="178" fill="#9edfff" font-size="14" text-anchor="middle">Operand B</text>
+
+          <!-- multiplier -->
+          <rect x="180" y="80" width="220" height="120" rx="10" fill="#052131" stroke="#0b4860"/>
+          <text x="290" y="110" fill="#bfefff" font-size="16" text-anchor="middle">High-speed Multiplier</text>
+          <text x="290" y="132" fill="#9edfff" font-size="12" text-anchor="middle">(Booth/Wallace-tree)</text>
+
+          <!-- adder/accumulate -->
+          <rect x="430" y="80" width="220" height="120" rx="10" fill="#052131" stroke="#0b4860"/>
+          <text x="540" y="110" fill="#bfefff" font-size="16" text-anchor="middle">Accumulator (Adder)</text>
+          <text x="540" y="132" fill="#9edfff" font-size="12" text-anchor="middle">With register feedback & ReLU option</text>
+
+          <!-- output -->
+          <rect x="680" y="100" width="160" height="60" rx="8" fill="#061a2a" stroke="#072838"/>
+          <text x="760" y="138" fill="#9edfff" font-size="14" text-anchor="middle">Output</text>
+
+          <!-- routing lines -->
+          <line x1="140" y1="70" x2="180" y2="120" stroke="#79e0ff" stroke-width="2"/>
+          <line x1="140" y1="170" x2="180" y2="140" stroke="#79e0ff" stroke-width="2"/>
+          <line x1="400" y1="120" x2="430" y2="120" stroke="#79e0ff" stroke-width="2"/>
+          <line x1="650" y1="120" x2="680" y2="130" stroke="#79e0ff" stroke-width="2"/>
+
+          <!-- animated data pulse -->
+          <g id="pulseGroup" fill="#7ee7ff">
+            <circle r="6" cx="200" cy="60" opacity="0.9">
+              <animate attributeName="cx" values="200;350" dur="1.1s" repeatCount="indefinite" />
+              <animate attributeName="cy" values="60;120" dur="1.1s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.9;0.2;0.9" dur="1.1s" repeatCount="indefinite"/>
+            </circle>
+            <circle r="5" cx="320" cy="140" opacity="0.8">
+              <animate attributeName="cx" values="320;500" dur="1.1s" begin="0.25s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.8;0.15;0.8" dur="1.1s" begin="0.25s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+        </svg>
+
+        <div class="metrics">
+          <div class="metric">
+            <h4>Latency</h4>
+            <p class="small">Pipeline latency: <strong>5 cycles</strong> (illustrative)</p>
+          </div>
+          <div class="metric">
+            <h4>Throughput</h4>
+            <p class="small">Sustained: <strong>1 MAC / cycle</strong> @ target f<sub>clk</sub></p>
+          </div>
+          <div class="metric">
+            <h4>Area (est.)</h4>
+            <p class="small">Approx. <strong>0.12 mm²</strong> in 65nm (imagined)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="small" style="margin-top:8px">Note: diagrams and numbers are illustrative to help present the design concept on a portfolio page.</div>
+    </aside>
+  </main>
+
+  <div class="grid">
+    <section class="card" id="results">
+      <h4 style="margin:0 0 8px 0">Simulation / Waveform (illustrative)</h4>
+      <div class="wave-wrap">
+        <canvas id="wave" class="wave-canvas"></canvas>
+      </div>
+
+      <div style="margin-top:12px" class="small">This simulated waveform visualizes multiply-accumulate activity (clocked dataflow). For portfolio purposes, replace with your actual waveform screenshot or exported image.</div>
+
+      <div style="margin-top:12px">
+        <strong>Key (imagined) results</strong>
+        <ul class="small">
+          <li>Max clock (pre-synthesis): 600 MHz (timing margin dependent)</li>
+          <li>Power (model): 22 mW at 300 MHz (typical)</li>
+          <li>Verification: Unit tests, random vectors, corner-sim scripts</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="code">
+      <h4 style="margin:0 0 8px 0">RTL Example (snippet)</h4>
+      <div class="snippet" id="rtlSnippet">
+<code>
+/* Simple illustrative Verilog MAC snippet (concept) */
+module mac_simple #(parameter W=32)(
+  input  logic clk, rst,
+  input  logic [W-1:0] a, b,
+  input  logic acc_en,
+  output logic [W-1:0] y
+);
+  logic [2*W-1:0] product;
+  logic [2*W-1:0] acc;
+
+  always_ff @(posedge clk or posedge rst) begin
+    if (rst) begin
+      acc <= '0;
+      product <= '0;
+      y <= '0;
+    end else begin
+      product <= a * b;         // multiplier (instantiated in real design)
+      if (acc_en) acc <= acc + product[W-1:0];
+      y <= acc[W-1:0];
+    end
+  end
+endmodule
+</code>
+      </div>
+
+      <div style="margin-top:12px" class="small">To show actual RTL, replace this conceptual snippet with your verified Verilog/RTL file and simulation commands.</div>
+
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <a class="btn" id="downloadReport" href="#">Download Project Summary (PDF)</a>
+        <a class="btn-ghost" id="viewRepo" href="#">View Example Repo</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer">
+    This page is an illustrative project showcase. Replace images, metrics and RTL with your measured results for an accurate portfolio presentation.
+  </div>
+</div>
+
+<script>
+/* ---------- Small interactive behaviors ---------- */
+
+/* Waveform canvas: draw an illustrative MAC activity waveform */
+(function drawWaveform(){
+  const c = document.getElementById('wave');
+  const dpr = window.devicePixelRatio || 1;
+  function resize(){
+    const rect = c.getBoundingClientRect();
+    c.width = rect.width * dpr;
+    c.height = rect.height * dpr;
+    c.style.width = rect.width + 'px';
+    c.style.height = rect.height + 'px';
+    render();
+  }
+  function render(){
+    const ctx = c.getContext('2d');
+    const w = c.width, h = c.height;
+    ctx.clearRect(0,0,w,h);
+    // background grid
+    ctx.fillStyle = '#021226';
+    ctx.fillRect(0,0,w,h);
+
+    ctx.strokeStyle = 'rgba(110,231,255,0.06)';
+    ctx.lineWidth = 1*dpr;
+    for(let i=0;i<8;i++){
+      ctx.beginPath();
+      ctx.moveTo(0, (i+1)*(h/9));
+      ctx.lineTo(w, (i+1)*(h/9));
+      ctx.stroke();
+    }
+
+    // simulated MAC waveform (stacked traces)
+    const traces = 3;
+    for(let t=0;t<traces;t++){
+      ctx.beginPath();
+      const amp = (h * 0.18);
+      const base = (h*(0.25 + t*0.28));
+      for(let x=0;x<w;x++){
+        const freq = 0.008 + 0.004*t;
+        const phase = (x/w)*Math.PI*4 + (t*1.2);
+        // make pulses at regular intervals
+        const pulse = Math.exp(-Math.pow((Math.sin((x/70)+t)),2)*2) * (Math.sin((x/30)+t*2));
+        const y = base + Math.sin(x*freq + t)*amp*0.45 + pulse*amp*0.7;
+        if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle = ['#6ee7ff','#7bd3ff','#90e0ff'][t];
+      ctx.lineWidth = 2*dpr;
+      ctx.stroke();
+    }
+
+    // small activity dots
+    const now = Date.now();
+    for(let i=0;i<8;i++){
+      const x = (now/6 + i*140) % w;
+      const y = h*0.18 + (Math.sin((now/3000)+i)*20);
+      ctx.beginPath(); ctx.fillStyle = 'rgba(110,231,255,0.14)'; ctx.arc(x,y,6*dpr,0,Math.PI*2); ctx.fill();
+    }
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  let anim = setInterval(render, 120);
+})();
+
+/* Buttons open example links or download a tiny PDF-like blob (placeholder) */
+document.getElementById('openRepo').addEventListener('click', (e)=>{
+  e.preventDefault();
+  window.open('https://github.com/zaileshar/high-speed-mac','_blank');
+});
+document.getElementById('viewRepo').addEventListener('click', (e)=>{
+  e.preventDefault();
+  window.open('https://github.com/zaileshar/high-speed-mac','_blank');
+});
+
+/* create a small text-based summary file and download it as .txt (placeholder for PDF) */
+document.getElementById('downloadReport').addEventListener('click', (e)=>{
+  e.preventDefault();
+  const text = [
+    "High-speed Multiplier MAC — Project Summary (illustrative)",
+    "-------------------------------------------",
+    "Overview: Multiply-Accumulate (MAC) unit for neural-network accelerators.",
+    "Key features: pipelined multiplier, Wallace-tree partial product reduction, accumulator with feedback and optional ReLU.",
+    "Imagined metrics: latency 5 cycles, throughput 1 MAC/cycle, target clock 500 MHz.",
+    "Note: Replace with your measured results, RTL files and waveform screenshots."
+  ].join("\\n\\n");
+  const blob = new Blob([text], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'MAC_project_summary.txt';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+});
+
+/* small accessibility: smooth scrolling for internal anchors */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', (ev)=>{
+    ev.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+});
+</script>
+</body>
+</html>
