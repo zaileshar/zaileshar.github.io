@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MOSFET TCAD Simulation - Project Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#f97316",
+              "primary-hover": "#ea580c",
+              "primary-light": "#F3E5AB",
+            },
+            fontFamily: {
+              display: ["Inter", "system-ui", "sans-serif"],
+            },
+            animation: {
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(243, 229, 171, 0.05) 50%, rgba(59, 130, 246, 0.05) 100%);
+        }
+        
+        .dark .hero-gradient {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(243, 229, 171, 0.08) 50%, rgba(59, 130, 246, 0.1) 100%);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(249, 115, 22, 0.2);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #f97316;
+        }
+        
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: #f97316;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .spec-box {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spec-box::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .spec-box:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 z-50 transition-all duration-300">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+                <a href="index.html#projects" class="nav-link flex items-center gap-2 text-slate-600 dark:text-slate-400 font-semibold">
+                    <span class="material-symbols-outlined text-lg">arrow_back</span>
+                    <span>Back to Portfolio</span>
+                </a>
+                <div class="text-xs font-mono bg-orange-500/10 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 px-3 py-1 rounded-full border border-orange-500/30">
+                    TCAD-02
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <div class="pt-24 pb-8 hero-gradient relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-20 right-10 w-72 h-72 bg-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                <div class="absolute -bottom-8 left-20 w-72 h-72 bg-amber-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+            </div>
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 dark:bg-orange-500/20 border border-orange-500/30 backdrop-blur-sm">
+                        <span class="material-symbols-outlined text-orange-600 dark:text-orange-400">memory</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-orange-700 dark:text-orange-300">Device Simulation</span>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-slate-900 dark:text-white leading-tight">
+                    MOSFET TCAD
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-400 dark:from-orange-400 dark:to-amber-300">Simulation & Analysis</span>
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+                    Detailed numerical simulation of Metal-Oxide-Semiconductor Field-Effect Transistor (MOSFET) devices at the device level using advanced physics-based TCAD tools for accurate performance prediction and optimization.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 relative z-10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+                
+                <!-- Overview Section -->
+                <div class="glass-card rounded-2xl p-8 md:p-10 hover-lift">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-1 h-8 bg-gradient-to-b from-orange-600 to-orange-500 rounded-full"></div>
+                        <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white">Project Overview</h2>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+                        This project encompasses comprehensive <strong>MOSFET TCAD simulation and characterization</strong> for planar and advanced device geometries. The simulation includes complete device physics modeling with detailed process simulation, 2D/3D device structure generation, and I-V/C-V characterization. Analysis covers various doping profiles, oxide thicknesses, and geometry variations to optimize device performance metrics and understand physical behavior under different operating conditions.
+                    </p>
+                </div>
+
+                <!-- Key Metrics -->
+                <div>
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Performance Metrics</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-orange-600 dark:text-orange-400">bolt</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Peak Transconductance</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">~345 µS</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">at Vgs = 5V</p>
+                        </div>
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-orange-600 dark:text-orange-400">straighten</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Channel Mobility</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">~520 cm²/Vs</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Electron mobility</p>
+                        </div>
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-orange-600 dark:text-orange-400">verified</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Leakage Current</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">~10⁻¹⁴ A</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Off-state leakage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Specifications -->
+                <div>
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Design Specifications</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-orange-600">architecture</span>
+                                Device Geometry
+                            </h3>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Channel length:</strong> 0.35 µm to 1.0 µm</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Channel width:</strong> 1 µm to 100 µm</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Gate oxide:</strong> 5-20 nm SiO₂ equivalent</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Device type:</strong> NMOS and PMOS configurations</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-orange-600">engineering</span>
+                                Analysis Approach
+                            </h3>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Process simulation:</strong> Implant, diffusion, and oxidation steps</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Device simulation:</strong> 2D steady-state and transient analysis</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Characterization:</strong> Complete I-V and C-V curves</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Optimization:</strong> Parameter sweeps and sensitivity analysis</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Technologies -->
+                <div class="glass-card rounded-2xl p-8 hover-lift">
+                    <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-8">Tools & Technologies</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-orange-500/20 dark:bg-orange-500/30 text-orange-700 dark:text-orange-300 rounded-lg text-sm font-semibold border border-orange-500/50">Sentaurus TCAD</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">Process Simulation</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">Device Simulation</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">I-V & C-V Characterization</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">Mesh Optimization</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">Data Analysis & Plotting</span>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="glass-card rounded-2xl p-10 bg-gradient-to-r from-orange-500/10 to-amber-400/10 dark:from-orange-500/20 dark:to-amber-400/20 border border-orange-500/30 hover-lift text-center">
+                    <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-6">Access Full Documentation</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+                        Download the complete simulation report with detailed methodology, process and device simulation parameters, comprehensive I-V/C-V analysis, and optimization results.
+                    </p>
+                    <a href="MOSFET_TCAD.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 hover:scale-105">
+                        <span class="material-symbols-outlined">file_download</span>
+                        Download Full Report (PDF)
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-t border-slate-200/50 dark:border-slate-800/50 mt-20">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+                <p class="text-slate-600 dark:text-slate-400">
+                    &copy; 2026 Zailesh A R. All rights reserved. | <a href="index.html" class="text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300 transition-colors">Back to Portfolio</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
