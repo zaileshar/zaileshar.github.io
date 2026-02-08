@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Memory Module on FPGA - Project Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 overflow-x-hidden">
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute bottom-20 right-10 w-72 h-72 bg-orange-500/5 rounded-full blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute -top-40 right-40 w-80 h-80 bg-slate-800/30 rounded-full blur-3xl opacity-10 animate-pulse"></div>
+    </div>
+
+    <div class="min-h-screen flex flex-col relative z-10">
+        <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/30 border-b border-slate-800/50">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+                <a href="index.html#projects" class="group flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-orange-500/10 transition-all duration-300">
+                    <span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                    <span class="text-sm font-medium text-slate-300 group-hover:text-orange-400">Back to Projects</span>
+                </a>
+                <div class="text-xs font-mono text-slate-500 px-3 py-1 rounded-full bg-slate-800/50">FPGA-04</div>
+            </div>
+        </header>
+
+        <main class="flex-1 relative">
+            <section class="relative py-20 px-6 overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-b from-orange-500/5 via-transparent to-transparent pointer-events-none"></div>
+                
+                <div class="max-w-6xl mx-auto relative z-10">
+                    <div class="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 text-xs font-bold uppercase tracking-widest border border-orange-500/30 backdrop-blur-sm">
+                        <span class="material-symbols-outlined text-sm">memory</span>
+                        RTL Design
+                    </div>
+
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
+                        Memory Module<br />
+                        <span class="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">on FPGA</span>
+                    </h1>
+
+                    <p class="text-lg text-slate-400 max-w-2xl leading-relaxed mb-8">
+                        Implemented a flexible, parameterized memory module architecture on FPGA with configurable address space and data width. Designed robust read/write control logic with timing optimization and comprehensive testbenches for thorough verification on Cyclone IV platform.
+                    </p>
+
+                    <div class="flex flex-wrap gap-3 mb-12">
+                        <span class="px-3 py-1 rounded-full text-xs font-mono border border-orange-500/30 bg-orange-500/5 text-orange-400">Verilog</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-mono border border-slate-700 bg-slate-800/50 text-slate-400">Quartus</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-mono border border-slate-700 bg-slate-800/50 text-slate-400">ModelSim</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-mono border border-slate-700 bg-slate-800/50 text-slate-400">FPGA</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="relative py-20 px-6">
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="group md:col-span-2 rounded-2xl p-8 bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 hover:border-orange-500/30 transition-all duration-500 backdrop-blur-sm">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="p-3 rounded-lg bg-orange-500/10 text-orange-400 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined">info</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white">Project Overview</h2>
+                        </div>
+                        <p class="text-slate-300 leading-relaxed">
+                            Designed and implemented a parameterized memory module with configurable read/write operations synthesized in Verilog. Validated comprehensive timing and functionality on a Cyclone IV FPGA platform with comprehensive testbenches. The module features flexible address space, data width configuration, and efficient BRAM utilization.
+                        </p>
+                    </div>
+
+                    <div class="rounded-2xl p-8 bg-gradient-to-br from-slate-800/40 to-slate-900/40 border border-slate-700/50 hover:border-orange-500/30 transition-all duration-500 backdrop-blur-sm">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="material-symbols-outlined text-orange-400 text-2xl">database</span>
+                            <h3 class="text-lg font-bold text-white">Storage Features</h3>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 flex-shrink-0"></span>
+                                Configurable Address Space
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 flex-shrink-0"></span>
+                                Flexible Data Width
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 flex-shrink-0"></span>
+                                Dual-Port Configuration
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 flex-shrink-0"></span>
+                                BRAM Optimization
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="rounded-2xl p-8 bg-gradient-to-br from-slate-800/40 to-slate-900/40 border border-slate-700/50 hover:border-orange-500/30 transition-all duration-500 backdrop-blur-sm">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="material-symbols-outlined text-orange-400 text-2xl">verified</span>
+                            <h3 class="text-lg font-bold text-white">Control Logic</h3>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 flex-shrink-0"></span>
+                                Read/Write Controller
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 flex-shrink-0"></span>
+                                Address Decoder
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 flex-shrink-0"></span>
+                                Timing Optimization
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 flex-shrink-0"></span>
+                                Comprehensive Testbenches
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="md:col-span-2 rounded-2xl p-8 bg-gradient-to-br from-slate-800/40 to-slate-900/40 border border-slate-700/50 hover:border-orange-500/30 transition-all duration-500 backdrop-blur-sm">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="material-symbols-outlined text-orange-400 text-2xl">build</span>
+                            <h3 class="text-lg font-bold text-white">Technologies & Tools</h3>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="p-3 rounded-lg bg-orange-500/10 border border-orange-500/30 text-center">
+                                <p class="font-mono text-sm text-orange-400">Verilog</p>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-center">
+                                <p class="font-mono text-sm text-slate-400">Intel Quartus</p>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-center">
+                                <p class="font-mono text-sm text-slate-400">ModelSim</p>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-center">
+                                <p class="font-mono text-sm text-slate-400">Cyclone IV</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="relative py-16 px-6">
+                <div class="max-w-6xl mx-auto text-center">
+                    <a href="Memory_FPGA_Report.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 text-slate-900 font-bold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105">
+                        <span class="material-symbols-outlined">file_download</span>
+                        Download Full Report
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="relative mt-20 py-12 px-6 border-t border-slate-800/50 bg-gradient-to-t from-slate-950 to-transparent">
+            <div class="max-w-6xl mx-auto text-center text-slate-400 text-sm">
+                <p>&copy; 2026 Zailesh A R. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>FPGA Square Root Unit - Project Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#F97316",
+              "primary-hover": "#EA580C",
+              "primary-light": "#FED7AA",
+            },
+            fontFamily: {
+              display: ["Inter", "system-ui", "sans-serif"],
+            },
+            animation: {
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.05) 50%, rgba(59, 130, 246, 0.05) 100%);
+        }
+        
+        .dark .hero-gradient {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 88, 12, 0.08) 50%, rgba(59, 130, 246, 0.1) 100%);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(249, 115, 22, 0.2);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #F97316;
+        }
+        
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: #F97316;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .spec-box {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spec-box::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .spec-box:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 z-50 transition-all duration-300">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+                <a href="index.html#projects" class="nav-link flex items-center gap-2 text-slate-600 dark:text-slate-400 font-semibold">
+                    <span class="material-symbols-outlined text-lg">arrow_back</span>
+                    <span>Back to Portfolio</span>
+                </a>
+                <div class="text-xs font-mono bg-orange-500/10 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 px-3 py-1 rounded-full border border-orange-500/30">
+                    FPGA-05
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <div class="pt-24 pb-8 hero-gradient relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-20 right-10 w-72 h-72 bg-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                <div class="absolute -bottom-8 left-20 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+            </div>
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 dark:bg-orange-500/20 border border-orange-500/30 backdrop-blur-sm">
+                        <span class="material-symbols-outlined text-orange-600 dark:text-orange-400">cpu_chip</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-orange-700 dark:text-orange-300">FPGA Project</span>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-slate-900 dark:text-white leading-tight">
+                    FPGA Square Root Unit
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-500 dark:from-orange-400 dark:to-orange-300">Hardware Accelerator Design</span>
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+                    A high-performance hardware accelerator implementing Newton-Raphson square root algorithm with pipelined architecture and optimized resource utilization for real-time processing.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 relative z-10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+                
+                <!-- Overview Section -->
+                <div class="glass-card rounded-2xl p-8 md:p-10 hover-lift">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-1 h-8 bg-gradient-to-b from-orange-600 to-orange-500 rounded-full"></div>
+                        <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white">Project Overview</h2>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+                        This FPGA project implements a <strong>hardware-accelerated square root computation unit</strong> using the Newton-Raphson iterative method with full pipeline support. The design achieves high throughput while maintaining precision and minimal latency, making it ideal for signal processing and scientific computing applications. The implementation includes optimized memory hierarchy, parameterized bit-width support, and synthesis-ready Verilog HDL code.
+                    </p>
+                </div>
+
+                <!-- Key Metrics -->
+                <div>
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Performance Metrics</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-orange-600 dark:text-orange-400">speed</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Throughput</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">500 Msps</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">operations per second</p>
+                        </div>
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-orange-600 dark:text-orange-400">memory</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Resource Usage</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">~4800 LUTs</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Xilinx 7 Series target</p>
+                        </div>
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-orange-600 dark:text-orange-400">accuracy</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Precision</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">32-bit IEEE</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">floating-point</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Specifications -->
+                <div>
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Design Specifications</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-orange-600">architecture</span>
+                                Algorithm Architecture
+                            </h3>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Newton-Raphson method:</strong> Iterative approximation with 5 stages</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Pipelined architecture:</strong> 6-stage pipeline for high throughput</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Parameterizable:</strong> Configurable bit-width and precision</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Low latency:</strong> Single-cycle convergence support</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-orange-600">engineering</span>
+                                Implementation Details
+                            </h3>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Verilog HDL:</strong> Synthesis-ready behavioral models</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Memory optimization:</strong> Distributed RAM for LUT efficiency</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Timing constraints:</strong> 500 MHz target frequency</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-orange-600 font-bold mt-1">•</span>
+                                    <span><strong>Verification:</strong> Comprehensive testbench with corner cases</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Technologies -->
+                <div class="glass-card rounded-2xl p-8 hover-lift">
+                    <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-8">Tools & Technologies</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-orange-500/20 dark:bg-orange-500/30 text-orange-700 dark:text-orange-300 rounded-lg text-sm font-semibold border border-orange-500/50">Xilinx Vivado</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">Verilog HDL</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">7 Series FPGA</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">ModelSim</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold">IP Core Generation</span>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="glass-card rounded-2xl p-10 bg-gradient-to-r from-orange-500/10 to-red-500/10 dark:from-orange-500/20 dark:to-red-500/20 border border-orange-500/30 hover-lift text-center">
+                    <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-6">Access Full Documentation</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+                        Download the comprehensive project report including hardware architecture, Verilog code, simulation results, and synthesis reports with detailed timing analysis.
+                    </p>
+                    <a href="fpga_sqrt_project.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 hover:scale-105">
+                        <span class="material-symbols-outlined">file_download</span>
+                        Download Full Report (PDF)
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-t border-slate-200/50 dark:border-slate-800/50 mt-20">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+                <p class="text-slate-600 dark:text-slate-400">
+                    &copy; 2026 Zailesh A R. All rights reserved. | <a href="index.html" class="text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300 transition-colors">Back to Portfolio</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
