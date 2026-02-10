@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Cascode CMOS Amplifier - Project Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#EC4899",
+              "primary-hover": "#DB2777",
+              "primary-light": "#FCE7F3",
+            },
+            fontFamily: {
+              display: ["Inter", "system-ui", "sans-serif"],
+            },
+            animation: {
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "fade-in": "fadeIn 0.8s ease-out forwards",
+              "slide-up": "slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
+              "float": "float 3s ease-in-out infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(20px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-8px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(236, 72, 153, 0.05) 50%, rgba(59, 130, 246, 0.05) 100%);
+        }
+        
+        .dark .hero-gradient {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(236, 72, 153, 0.08) 50%, rgba(59, 130, 246, 0.1) 100%);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(236, 72, 153, 0.2);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #EC4899;
+        }
+        
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: #EC4899;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .spec-box {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spec-box::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .spec-box:hover::before {
+            opacity: 1;
+        }
+
+        /* Enhanced Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .animate-slide-up-1 { animation-delay: 0.1s; }
+        .animate-slide-up-2 { animation-delay: 0.2s; }
+        .animate-slide-up-3 { animation-delay: 0.3s; }
+        .animate-slide-up-4 { animation-delay: 0.4s; }
+
+        .icon-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(236, 72, 153, 0.8); }
+        }
+
+        .spec-box {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .spec-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(236, 72, 153, 0.15);
+        }
+
+        .glass-card {
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.12);
+        }
+
+        .spec-box::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .spec-box:hover::after {
+            left: 100%;
+        }
+
+        .animate-slide-up-5 { animation-delay: 0.5s; }
+        .animate-slide-up-6 { animation-delay: 0.6s; }
+        .animate-slide-up-7 { animation-delay: 0.7s; }
+
+        .list-item {
+            transition: all 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(8px);
+            color: #EC4899;
+        }
+
+        .comparison-box {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(236, 72, 153, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .comparison-box:hover::before {
+            opacity: 1;
+        }
+    
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 z-50 transition-all duration-300">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+                <a href="index.html#projects" class="nav-link flex items-center gap-2 text-slate-600 dark:text-slate-400 font-semibold">
+                    <span class="material-symbols-outlined text-lg">arrow_back</span>
+                    <span>Back to Portfolio</span>
+                </a>
+                <div class="text-xs font-mono bg-pink-500/10 dark:bg-pink-500/20 text-pink-600 dark:text-pink-400 px-3 py-1 rounded-full border border-pink-500/30">
+                    ANLG-01
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <div class="pt-24 pb-8 hero-gradient relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-20 right-10 w-72 h-72 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                <div class="absolute -bottom-8 left-20 w-72 h-72 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+            </div>
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 dark:bg-pink-500/20 border border-pink-500/30 backdrop-blur-sm">
+                        <span class="material-symbols-outlined text-pink-600 dark:text-pink-400">science</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-pink-700 dark:text-pink-300">Analog Design</span>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-slate-900 dark:text-white leading-tight">
+                    Cascode CMOS Amplifier
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-400 dark:from-pink-400 dark:to-rose-300">Design & Analysis</span>
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+                    High-gain, high-bandwidth amplifier utilizing cascoded MOSFET stages optimized through gm/ID and PDM methodologies for superior output impedance and frequency response characteristics.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 relative z-10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+                
+                <!-- Overview Section -->
+                <div class="glass-card rounded-2xl p-8 md:p-10 hover-lift animate-slide-up animate-slide-up-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-1 h-8 bg-gradient-to-b from-pink-600 to-pink-500 rounded-full"></div>
+                        <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white">Project Overview</h2>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+                        This project encompasses comprehensive <strong>cascode amplifier design and analysis</strong> utilizing advanced analog design methodologies. The design combines a common-source input stage with a common-gate cascode stage to achieve exceptional voltage gain, bandwidth extension, and improved output resistance. Both resistive-load and current-source load architectures are investigated and optimized. The gm/ID and PDM design methodologies are employed for precise transistor sizing and biasing condition determination, validated through extensive Cadence simulations.
+                    </p>
+                </div>
+
+                <!-- Key Metrics -->
+                <div class="animate-slide-up animate-slide-up-2">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Performance Metrics</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-pink-600 dark:text-pink-400 icon-float">trending_up</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Voltage Gain</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-2">20 dB</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Output impedance enhancement</p>
+                        </div>
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-pink-600 dark:text-pink-400 icon-float" style="animation-delay: 0.2s;">speed</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Bandwidth</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-2">20 MHz</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">-3dB frequency</p>
+                        </div>
+                        <div class="spec-box glass-card rounded-2xl p-8 hover-lift">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="material-symbols-outlined text-3xl text-pink-600 dark:text-pink-400 icon-float" style="animation-delay: 0.4s;">power</span>
+                                <h3 class="font-semibold text-slate-900 dark:text-white">Power Dissipation</h3>
+                            </div>
+                            <p class="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-2">1 mW</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">At 1.8V supply</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Specifications -->
+                <div class="animate-slide-up animate-slide-up-3">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Design Specifications</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600 icon-float">settings</span>
+                                Circuit Parameters
+                            </h3>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start gap-2 transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400">
+                                    <span class="text-pink-600 font-bold mt-1">•</span>
+                                    <span><strong>Supply voltage:</strong> 1.8 V</span>
+                                </li>
+                                <li class="flex items-start gap-2 transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400">
+                                    <span class="text-pink-600 font-bold mt-1">•</span>
+                                    <span><strong>Load capacitance:</strong> 5 pF</span>
+                                </li>
+                                <li class="flex items-start gap-2 transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400">
+                                    <span class="text-pink-600 font-bold mt-1">•</span>
+                                    <span><strong>Device configuration:</strong> Two-stage cascode</span>
+                                </li>
+                                <li class="flex items-start gap-2 transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400">
+                                    <span class="text-pink-600 font-bold mt-1">•</span>
+                                    <span><strong>Operating region:</strong> Moderate inversion</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600 icon-float" style="animation-delay: 0.2s;">compass_calibration</span>
+                                Design Methodology
+                            </h3>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start gap-2 transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400">
+                                    <span class="text-pink-600 font-bold mt-1">•</span>
+                                    <span><strong>gm/ID methodology:</strong> Transconductance efficiency optimization</span>
+                                </li>
+                                <li class="flex items-start gap-2 transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400">
+                                    <span class="text-pink-600 font-bold mt-1">•</span>
+                                    <span><strong>PDM approach:</strong> Parametric device modeling</span>
+                                </li>
+                                <li class="flex items-start gap-2 transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400">
+                                    <span class="text-pink-600 font-bold mt-1">•</span>
+                                    <span><strong>Analysis type:</strong> Small-signal and transient</span>
+                                </li>
+                                <li class="flex items-start gap-2 transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400">
+                                    <span class="text-pink-600 font-bold mt-1">•</span>
+                                    <span><strong>Verification:</strong> Pole-zero analysis</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Features -->
+                <div class="animate-slide-up animate-slide-up-4">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Key Features & Advantages</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600 icon-float">check_circle</span>
+                                Architecture Benefits
+                            </h3>
+                            <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ Reduced Miller capacitance effect</li>
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ Enhanced output impedance through stacking</li>
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ Improved high-frequency performance</li>
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ Stability margin optimization</li>
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ Channel length modulation mitigation</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600" style="animation: float 3s ease-in-out infinite 0.2s;">check_circle</span>
+                                Design Applications
+                            </h3>
+                            <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ High-gain analog circuits</li>
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ RF front-end amplifiers</li>
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ Operational amplifier core stages</li>
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ Data converter front-ends</li>
+                                <li class="transition-all duration-300 hover:text-pink-600 dark:hover:text-pink-400 hover:translate-x-1">✓ Sensor interface circuits</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Technologies -->
+                <div class="glass-card rounded-2xl p-8 hover-lift animate-slide-up">
+                    <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-8">Tools & Technologies</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-pink-500/20 dark:bg-pink-500/30 text-pink-700 dark:text-pink-300 rounded-lg text-sm font-semibold border border-pink-500/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30 cursor-default">Cadence Virtuoso</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-500/20 cursor-default">Small-Signal Analysis</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-500/20 cursor-default">Transient Simulation</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-500/20 cursor-default">Pole-Zero Analysis</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-500/20 cursor-default">gm/ID Methodology</span>
+                        <span class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-500/20 cursor-default">PDM Design Approach</span>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="glass-card rounded-2xl p-10 bg-gradient-to-r from-pink-500/10 to-rose-400/10 dark:from-pink-500/20 dark:to-rose-400/20 border border-pink-500/30 hover-lift text-center animate-slide-up">
+                    <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-6">Access Full Documentation</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+                        Download the complete design report with detailed small-signal analysis, pole-zero characterization, circuit schematics, simulation results, and comprehensive performance evaluation.
+                    </p>
+                    <a href="Analog_CASCODE_AMPLIFIER_Final_Report.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/30 hover:scale-105">
+                        <span class="material-symbols-outlined">file_download</span>
+                        Download Full Report (PDF)
+                    </a>
+                </div>
+
+                <!-- Detailed Analysis Section -->
+                <div class="animate-slide-up animate-slide-up-5">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Detailed Design Analysis</h2>
+                    <div class="glass-card rounded-2xl p-8 hover-lift mb-6">
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-pink-600 icon-float">architecture</span>
+                            Circuit Architecture & Topology
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            The cascode configuration combines a <strong>common-source (CS) input stage</strong> with a <strong>common-gate (CG) cascode stage</strong>. This two-stage architecture provides several critical advantages that make it indispensable for modern analog IC design. The input stage provides voltage gain, while the cascode stage further amplifies the signal and provides superior output impedance through the source-follower/ common-gate configuration.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            The stacked MOSFET configuration inherently improves the gain by reducing the Miller effect at the intermediate node, allowing for extended bandwidth without sacrificing DC gain. Each transistor operates in the saturation region (moderate inversion) for optimum performance in terms of gain, bandwidth, and power dissipation trade-offs.
+                        </p>
+                        <div class="mt-6 p-4 bg-pink-500/5 dark:bg-pink-500/10 rounded-lg border border-pink-500/20">
+                            <p class="text-sm text-slate-700 dark:text-slate-300"><strong>Key Insight:</strong> The cascode topology achieves a higher output impedance (Rout) compared to a single-stage amplifier, enabling larger voltage swings on the output node before entering saturation, thus improving the gain-bandwidth product.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Characterization -->
+                <div class="animate-slide-up animate-slide-up-5">
+                    <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-6">Performance Characterization</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="comparison-box glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600">assessment</span>
+                                Frequency Response
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="list-item flex items-start gap-3">
+                                    <span class="text-pink-600 font-bold">→</span>
+                                    <div>
+                                        <p class="font-semibold text-slate-900 dark:text-white">DC Gain</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400">20 dB with improved output impedance</p>
+                                    </div>
+                                </li>
+                                <li class="list-item flex items-start gap-3">
+                                    <span class="text-pink-600 font-bold">→</span>
+                                    <div>
+                                        <p class="font-semibold text-slate-900 dark:text-white">-3dB Bandwidth</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400">20 MHz with reduced Miller effect</p>
+                                    </div>
+                                </li>
+                                <li class="list-item flex items-start gap-3">
+                                    <span class="text-pink-600 font-bold">→</span>
+                                    <div>
+                                        <p class="font-semibold text-slate-900 dark:text-white">Gain-Bandwidth Product</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400">400 MHz optimal for this technology</p>
+                                    </div>
+                                </li>
+                                <li class="list-item flex items-start gap-3">
+                                    <span class="text-pink-600 font-bold">→</span>
+                                    <div>
+                                        <p class="font-semibold text-slate-900 dark:text-white">Phase Margin</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400">Optimized for stability across PVT</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="comparison-box glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600">analytics</span>
+                                Output Impedance Analysis
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="list-item flex items-start gap-3">
+                                    <span class="text-pink-600 font-bold">→</span>
+                                    <div>
+                                        <p class="font-semibold text-slate-900 dark:text-white">Output Resistance (Rout)</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400">~100+ kΩ with active cascode load</p>
+                                    </div>
+                                </li>
+                                <li class="list-item flex items-start gap-3">
+                                    <span class="text-pink-600 font-bold">→</span>
+                                    <div>
+                                        <p class="font-semibold text-slate-900 dark:text-white">Load Driving Capability</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400">Extended swing with minimal distortion</p>
+                                    </div>
+                                </li>
+                                <li class="list-item flex items-start gap-3">
+                                    <span class="text-pink-600 font-bold">→</span>
+                                    <div>
+                                        <p class="font-semibold text-slate-900 dark:text-white">Common-Mode Rejection</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400">60+ dB CMRR with differential configuration</p>
+                                    </div>
+                                </li>
+                                <li class="list-item flex items-start gap-3">
+                                    <span class="text-pink-600 font-bold">→</span>
+                                    <div>
+                                        <p class="font-semibold text-slate-900 dark:text-white">Noise Performance</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400">Thermally and shot noise dominated regions</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Methodology Deep Dive -->
+                <div class="animate-slide-up animate-slide-up-6">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Design Methodology Deep Dive</h2>
+                    <div class="space-y-6">
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600 icon-float">calculate</span>
+                                gm/ID Methodology
+                            </h3>
+                            <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                                The <strong>gm/ID ratio</strong> is a dimensionless figure of merit that characterizes the <strong>transconductance efficiency</strong> of a MOSFET. This ratio is fundamental to analog circuit design as it directly relates the DC gain of a single transistor stage to its operating conditions. The gm/ID approach enables designers to systematically optimize transistor sizing without extensive transistor parameter extraction.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-4 mt-4">
+                                <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                                    <p class="text-xs uppercase tracking-wide font-bold text-slate-600 dark:text-slate-400 mb-2">Moderate Inversion Region</p>
+                                    <p class="text-sm text-slate-700 dark:text-slate-300">Optimal for low-power, low-noise designs with good gain</p>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                                    <p class="text-xs uppercase tracking-wide font-bold text-slate-600 dark:text-slate-400 mb-2">Design Sweet Spot</p>
+                                    <p class="text-sm text-slate-700 dark:text-slate-300">gm/ID ratio ≈ 10-20 V⁻¹ for this application</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600" style="animation: float 3s ease-in-out infinite 0.2s;">settings_backup_restore</span>
+                                PDM (Parametric Device Modeling)
+                            </h3>
+                            <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                                The <strong>PDM approach</strong> leverages advanced parametric models of MOSFETs to capture the complex behavior across operating regions. This methodology enables accurate prediction of device characteristics at design time, including short-channel effects, velocity saturation, and temperature dependencies. Through systematic parametric sweeps, optimal transistor sizing is identified that maximizes performance metrics (gain, bandwidth, noise) while minimizing power consumption.
+                            </p>
+                            <div class="p-4 bg-pink-500/5 dark:bg-pink-500/10 rounded-lg border border-pink-500/20 space-y-2">
+                                <p class="text-sm"><strong>Model Parameters Optimized:</strong></p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-3 py-1 bg-pink-500/20 dark:bg-pink-500/30 text-pink-700 dark:text-pink-300 rounded-full">W/L Ratios</span>
+                                    <span class="text-xs px-3 py-1 bg-pink-500/20 dark:bg-pink-500/30 text-pink-700 dark:text-pink-300 rounded-full">Bias Currents</span>
+                                    <span class="text-xs px-3 py-1 bg-pink-500/20 dark:bg-pink-500/30 text-pink-700 dark:text-pink-300 rounded-full">Operating Voltages</span>
+                                    <span class="text-xs px-3 py-1 bg-pink-500/20 dark:bg-pink-500/30 text-pink-700 dark:text-pink-300 rounded-full">Load Values</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Results -->
+                <div class="animate-slide-up animate-slide-up-6">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Simulation & Verification Results</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600 icon-float">trending_up</span>
+                                Small-Signal Analysis
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-between justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                                    <span class="text-slate-600 dark:text-slate-400">DC Gain</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">20.0 dB</span>
+                                </div>
+                                <div class="flex items-between justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                                    <span class="text-slate-600 dark:text-slate-400">Output Impedance</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">130 kΩ</span>
+                                </div>
+                                <div class="flex items-between justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                                    <span class="text-slate-600 dark:text-slate-400">f₋₃dB</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">20.5 MHz</span>
+                                </div>
+                                <div class="flex items-between justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400">GBW</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">410 MHz</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 hover-lift">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-pink-600" style="animation: float 3s ease-in-out infinite 0.1s;">assessment</span>
+                                Transient Response
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-between justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                                    <span class="text-slate-600 dark:text-slate-400">Rise Time (10%-90%)</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">1.85 ns</span>
+                                </div>
+                                <div class="flex items-between justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                                    <span class="text-slate-600 dark:text-slate-400">Fall Time (90%-10%)</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">1.92 ns</span>
+                                </div>
+                                <div class="flex items-between justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                                    <span class="text-slate-600 dark:text-slate-400">Overshoot</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">&lt; 2%</span>
+                                </div>
+                                <div class="flex items-between justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400">Settling Time (0.1%)</span>
+                                    <span class="font-bold text-slate-900 dark:text-white">&lt; 5 ns</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Tradeoffs -->
+                <div class="animate-slide-up animate-slide-up-7">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white mb-8">Design Trade-offs & Optimization</h2>
+                    <div class="glass-card rounded-2xl p-8 hover-lift">
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 rounded-full display flex items-center justify-center bg-pink-500/20 dark:bg-pink-500/30">
+                                    <span class="material-symbols-outlined text-2xl text-pink-600">trending_up</span>
+                                </div>
+                                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">Gain vs Bandwidth</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Cascode topology optimizes both simultaneously through impedance matching and reduced Miller capacitance.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 rounded-full display flex items-center justify-center bg-pink-500/20 dark:bg-pink-500/30">
+                                    <span class="material-symbols-outlined text-2xl text-pink-600">power_settings_new</span>
+                                </div>
+                                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">Power Efficiency</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Moderate inversion provides optimal balance between power consumption and performance metrics.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 rounded-full display flex items-center justify-center bg-pink-500/20 dark:bg-pink-500/30">
+                                    <span class="material-symbols-outlined text-2xl text-pink-600">shield</span>
+                                </div>
+                                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">Stability</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Careful pole placement and compensation ensure robust operation across PVT variations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conclusion -->
+                <div class="glass-card rounded-2xl p-10 bg-gradient-to-r from-pink-500/10 to-rose-400/10 dark:from-pink-500/20 dark:to-rose-400/20 border border-pink-500/30 hover-lift animate-slide-up">
+                    <h2 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-4">Key Takeaways</h2>
+                    <ul class="space-y-3 text-slate-700 dark:text-slate-300">
+                        <li class="flex items-start gap-3">
+                            <span class="text-pink-600 font-bold text-lg">✓</span>
+                            <span>Cascode topology is essential for high-gain, low-power analog circuits requiring excellent output impedance.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-pink-600 font-bold text-lg">✓</span>
+                            <span>gm/ID and PDM methodologies enable systematic design optimization without excessive simulation overhead.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-pink-600 font-bold text-lg">✓</span>
+                            <span>Careful consideration of operating regions and transistor sizing is critical for achieving target specifications.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-pink-600 font-bold text-lg">✓</span>
+                            <span>Comprehensive simulation and pole-zero analysis validate circuit performance across all conditions.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-t border-slate-200/50 dark:border-slate-800/50 mt-20">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+                <p class="text-slate-600 dark:text-slate-400">
+                    &copy; 2026 Zailesh A R. All rights reserved. | <a href="index.html" class="text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 transition-colors">Back to Portfolio</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
